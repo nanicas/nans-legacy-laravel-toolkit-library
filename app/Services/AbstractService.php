@@ -10,8 +10,9 @@ use Nanicas\LegacyLaravelToolkit\Traits\Configurable;
 
 abstract class AbstractService
 {
-    use AvailabilityWithDependencie, Configurable;
-    
+    use AvailabilityWithDependencie,
+        Configurable;
+
     protected $handler;
     protected $validator;
     protected $repository;
@@ -57,14 +58,14 @@ abstract class AbstractService
         if (empty($validator = $this->getValidator())) {
             return;
         }
-        
+
         $validator->setData($data);
         $validator->setRequest($this->getConfigIndex('request'));
 
         if ($validator->run($method) === false) {
             $exception = new ValidatorException($validator->translate());
             $exception->setErrors($validator->getErrors());
-            
+
             throw $exception;
         }
 
@@ -74,24 +75,5 @@ abstract class AbstractService
     public function setRepository($repository)
     {
         $this->repository = $repository;
-    }
-
-    public function getTable()
-    {
-        return $this->repository->getTable();
-    }
-
-    public function getColumnsObject()
-    {
-        return $this->repository->getColumnsObject();
-    }
-
-    public function showColumns(string $table = '')
-    {
-        $data = $this->repository->showColumns($table);
-
-        return array_map(function ($item) {
-            return $item['Field'];
-        }, $data);
     }
 }

@@ -72,7 +72,7 @@ trait CrudValidator
     {
         //
     }
-    
+
     protected function validateUserType(string $fun)
     {
         //
@@ -134,6 +134,4 @@ trait CrudValidator
             $this->addError('row_not_found');
         }
     }
-
-    
 }

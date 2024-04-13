@@ -6,5 +6,5 @@ use Nanicas\LegacyLaravelToolkit\Staters\BaseStater;
 
 class AppStater extends BaseStater
 {
-
+    
 }

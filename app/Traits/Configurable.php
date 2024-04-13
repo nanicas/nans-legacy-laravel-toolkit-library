@@ -37,7 +37,7 @@ trait Configurable
     {
         return (!empty($this->config[$key]));
     }
-    
+
     public function existsConfigIndex($key): bool
     {
         return (array_key_exists($key, $this->config));

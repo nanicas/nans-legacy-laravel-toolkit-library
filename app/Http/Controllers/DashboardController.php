@@ -4,9 +4,10 @@ namespace Nanicas\LegacyLaravelToolkit\Http\Controllers;
 
 use Illuminate\Support\Facades\View;
 use Illuminate\Http\Request;
-use App\Helpers\Helper;
+use Nanicas\LegacyLaravelToolkit\Helpers\Helper as InternalHelper;
 
-class_alias(Helper::readTemplateConfig()['controllers']['base'],  __NAMESPACE__ . '\BaseControllerAlias');
+class_alias(InternalHelper::readTemplateConfig()['helpers']['global'], uniqid() . __NAMESPACE__ . '\HelperAlias');
+class_alias(InternalHelper::readTemplateConfig()['controllers']['base'], __NAMESPACE__ . '\BaseControllerAlias');
 
 abstract class DashboardController extends BaseControllerAlias
 {
@@ -34,18 +35,15 @@ abstract class DashboardController extends BaseControllerAlias
 
     protected function notAllowedResponse(Request $request)
     {
-        return Helper::notAllowedResponse($request);
+        return HelperAlias::notAllowedResponse($request);
     }
-    
+
     public function beforeView(Request $request)
     {
-        $sessionData = [];//Helper::getSessionData();
-
-        View::share('session_data', $sessionData);
-        View::share('is_admin', Helper::isAdmin());
-        View::share('is_master', Helper::isMaster());
-        View::share('is_test', Helper::isTest());
-        View::share('is_worker', Helper::isWorker());
+        View::share('is_admin', HelperAlias::isAdmin());
+        View::share('is_master', HelperAlias::isMaster());
+        View::share('is_test', HelperAlias::isTest());
+        View::share('is_worker', HelperAlias::isWorker());
         View::share('dashboard_flash_data', $request->session()->get('dashboard_flash_data', null));
 
         parent::beforeView($request);

@@ -2,11 +2,11 @@
 
 namespace Nanicas\LegacyLaravelToolkit\Handlers;
 
-class AbstractHandler
+abstract class AbstractHandler
 {
     protected $data;
     protected $request;
-    
+
     public function setRequest(object $request)
     {
         $this->request = $request;
@@ -22,7 +22,7 @@ class AbstractHandler
         if (!method_exists($this, $method)) {
             return;
         }
-        
+
         $this->{$method}();
     }
 }

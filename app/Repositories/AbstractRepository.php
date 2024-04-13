@@ -16,7 +16,7 @@ abstract class AbstractRepository
         return $this->model;
     }
 
-    public function getClassModel()
+    public function getModelClass()
     {
         return get_class($this->model);
     }

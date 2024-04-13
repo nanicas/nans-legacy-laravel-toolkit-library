@@ -2,14 +2,11 @@
 
 namespace Nanicas\LegacyLaravelToolkit\Traits;
 
-//use Nanicas\LegacyLaravelToolkit\Services\AbstractService;
-
 trait AvailabilityWithService
 {
-    private $service;
+    private object $service;
 
-    //public function setService(AbstractService $service)
-    public function setService($service)
+    public function setService(object $service)
     {
         $this->service = $service;
     }

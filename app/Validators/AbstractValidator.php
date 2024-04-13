@@ -2,10 +2,11 @@
 
 namespace Nanicas\LegacyLaravelToolkit\Validators;
 
-use Nanicas\LegacyLaravelToolkit\Helpers\Helper;
-//use Nanicas\LegacyLaravelToolkit\Staters\AppStater;
+use Nanicas\LegacyLaravelToolkit\Helpers\Helper as InternalHelper;
 
-class AbstractValidator
+class_alias(InternalHelper::readTemplateConfig()['helpers']['global'],  __NAMESPACE__ . '\HelperAlias');
+
+abstract class AbstractValidator
 {
     private $data;
     private $method;
@@ -104,6 +105,6 @@ class AbstractValidator
         
         $packaged = true;//(bool) AppStater::getItem('packaged');
 
-        return Helper::view('components.validator-messages', ['messages' => $this->errors], $packaged)->render();
+        return HelperAlias::view('components.validator-messages', ['messages' => $this->errors], $packaged)->render();
     }
 }

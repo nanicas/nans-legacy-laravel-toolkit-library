@@ -36,7 +36,7 @@ trait AttributesResourceModel
         }
 
         $datetime = $this->getAttribute($attr);
-        
+
         return ($datetime) ? $datetime->format($format) : null;
     }
 }

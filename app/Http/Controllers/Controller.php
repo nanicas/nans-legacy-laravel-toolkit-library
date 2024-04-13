@@ -7,17 +7,20 @@ use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Support\Facades\View;
 use Nanicas\LegacyLaravelToolkit\Traits\Configurable;
-use Nanicas\LegacyLaravelToolkit\Helpers\Helper;
 use Illuminate\Routing\Controller as BaseController;
 use Nanicas\LegacyLaravelToolkit\Traits\AvailabilityWithService;
 use Nanicas\LegacyLaravelToolkit\Staters\AppStater;
 use Illuminate\Http\Request;
+use Nanicas\LegacyLaravelToolkit\Helpers\Helper as InternalHelper;
+
+class_alias(InternalHelper::readTemplateConfig()['helpers']['global'], __NAMESPACE__ . '\HelperAlias');
 
 class Controller extends BaseController
 {
     use AuthorizesRequests,
         DispatchesJobs,
         ValidatesRequests;
+
     use Configurable,
         AvailabilityWithService;
 
@@ -47,7 +50,7 @@ class Controller extends BaseController
     public function beforeView(Request $request)
     {
         View::share('assets', $this->getConfig()['assets'] ?? []);
-        View::share('view_prefix', Helper::getViewPrefix());
+        View::share('view_prefix', HelperAlias::getViewPrefix());
         View::share('assets_prefix', $this->getRootFolderNameOfAssets());
         View::share('packaged_assets_prefix', $this->getRootFolderNameOfAssetsPackaged());
         View::share('screen', $this->getScreen());
@@ -60,7 +63,7 @@ class Controller extends BaseController
     {
         $screen = $this->getScreen();
         $sectionScreen = $this->getSectionScreen();
-        
+
         if (!empty($sectionScreen)) {
             $screen .= '.' . $sectionScreen;
         }
@@ -85,7 +88,7 @@ class Controller extends BaseController
 
         array_pop($list);
         array_shift($list);
-        
+
         return implode('.', $list);
     }
 
@@ -119,12 +122,12 @@ class Controller extends BaseController
 
     public function getRootFolderNameOfAssetsPackaged()
     {
-        return Helper::getRootFolderNameOfAssets();
+        return HelperAlias::getRootFolderNameOfAssets();
     }
 
     public function getRootFolderNameOfAssets()
     {
-        $root = Helper::getRootFolderNameOfAssets();
+        $root = HelperAlias::getRootFolderNameOfAssets();
         $packaged = $this->isPackagedView();
 
         return ($packaged) ? $root . '/' : '';

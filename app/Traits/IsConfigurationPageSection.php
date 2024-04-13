@@ -33,7 +33,7 @@ trait IsConfigurationPageSection
     protected function onConstructSection()
     {
         $packagedRoot = $this->getRootFolderNameOfAssetsPackaged();
-        
+
         $this->addJsAssets($packagedRoot . '/resources/layouts/config/index.js');
         $this->addCssAssets($packagedRoot . '/resources/layouts/config/index.css');
 

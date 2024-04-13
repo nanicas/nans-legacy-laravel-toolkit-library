@@ -5,20 +5,20 @@ namespace Nanicas\LegacyLaravelToolkit\Staters;
 abstract class BaseStater
 {
     protected static $instance = null;
-    protected static $data     = array();
+    protected static $data = array();
 
     /** protected to prevent cloning */
     protected function __clone()
     {
-
+        
     }
 
     /** protected to prevent instantiation from outside of the class */
     protected function __construct()
     {
-
+        
     }
-    
+
     /** call this method to get instance */
     public static function instance(array $data)
     {

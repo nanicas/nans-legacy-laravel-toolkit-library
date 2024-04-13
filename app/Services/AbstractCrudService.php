@@ -3,9 +3,11 @@
 namespace Nanicas\LegacyLaravelToolkit\Services;
 
 use Nanicas\LegacyLaravelToolkit\Services\AbstractService;
-use Nanicas\LegacyLaravelToolkit\Helpers\Helper;
+use Nanicas\LegacyLaravelToolkit\Helpers\Helper as InternalHelper;
 
-class AbstractCrudService extends AbstractService
+class_alias(InternalHelper::readTemplateConfig()['helpers']['global'], __NAMESPACE__ . '\HelperAlias');
+
+abstract class AbstractCrudService extends AbstractService
 {
     public function getIndexData(array $data = [])
     {
@@ -39,27 +41,9 @@ class AbstractCrudService extends AbstractService
         return [];
     }
 
-    public function getByIdAndSlug(int $id, int $slug = 0)
-    {
-        if (empty($slug)) {
-            $slug = Helper::getSlug();
-        }
-
-        return $this->getRepository()->getByIdAndSlug($id, $slug);
-    }
-
     public function getById(int $id)
     {
         return $this->getRepository()->getById($id);
-    }
-
-    public function getBySlug(int $slug = 0)
-    {
-        if (empty($slug)) {
-            $slug = Helper::getSlug();
-        }
-
-        return $this->getRepository()->getBySlug($slug);
     }
 
     public function getAllActive()
@@ -74,7 +58,7 @@ class AbstractCrudService extends AbstractService
 
     public function destroy(int $id)
     {
-        $loggedUser = Helper::getUser();
+        $loggedUser = HelperAlias::getUser();
 
         $data = compact('id');
         $data['row'] = $this->getRepository()->getById($id);
@@ -98,7 +82,7 @@ class AbstractCrudService extends AbstractService
 
     public function getDataToShow(int $id)
     {
-        $loggedUser = Helper::getUser();
+        $loggedUser = HelperAlias::getUser();
 
         $data = compact('id');
         $data['row'] = $this->getRepository()->getById($id);

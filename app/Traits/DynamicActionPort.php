@@ -4,9 +4,11 @@ namespace Nanicas\LegacyLaravelToolkit\Traits;
 
 use Nanicas\LegacyLaravelToolkit\Exceptions\ValidatorException;
 use Nanicas\LegacyLaravelToolkit\Exceptions\CustomValidatorException;
-use App\Helpers\Helper;
 use Illuminate\Http\Request;
 use Throwable;
+use Nanicas\LegacyLaravelToolkit\Helpers\Helper as InternalHelper;
+
+class_alias(InternalHelper::readTemplateConfig()['helpers']['global'], __NAMESPACE__ . '\HelperAlias');
 
 trait DynamicActionPort
 {
@@ -44,7 +46,7 @@ trait DynamicActionPort
             $message = (empty($result)) ? 'Ocorreu um problema durante o processamento dessa ação de "' . $action . '"' : 'Ação executada com sucesso!';
 
             if (!$this->getIsAPI()) {
-                $message = Helper::loadMessage($message, $status);
+                $message = HelperAlias::loadMessage($message, $status);
             }
         } catch (ValidatorException | CustomValidatorException $ex) {
             $message = $ex->getMessage();
@@ -52,12 +54,12 @@ trait DynamicActionPort
             $message = $th->getMessage();
 
             if (!$this->getIsAPI()) {
-                $message = Helper::loadMessage($message, $status);
+                $message = HelperAlias::loadMessage($message, $status);
             }
         }
 
         return $this->responseDynamicAction(compact(
-            'action', 'status', 'message', 'data', 'result', 'request', 'id'
+                'action', 'status', 'message', 'data', 'result', 'request', 'id'
         ), $action);
     }
 
@@ -65,7 +67,7 @@ trait DynamicActionPort
     {
         extract($data);
 
-        return response()->json(Helper::createDefaultJsonToResponse($status,
+        return response()->json(HelperAlias::createDefaultJsonToResponse($status,
             [
                 'result' => $result,
                 'message' => $message,

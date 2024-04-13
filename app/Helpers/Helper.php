@@ -3,19 +3,19 @@
 namespace Nanicas\LegacyLaravelToolkit\Helpers;
 
 use Psr\Http\Message\ResponseInterface;
-use Zevitagem\LegoAuth\Helpers\Helper as HelperVendor;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 class Helper
 {
+    //const VIEW_PREFIX = 'default_legacy_template::';
     const VIEW_PREFIX = 'presentation_template::';
-    
+
     public static function getViewPrefix()
     {
         return self::VIEW_PREFIX;
     }
-    
+
     public static function getRootFolderNameOfAssets()
     {
         return 'presentation_template';
@@ -46,47 +46,17 @@ class Helper
     {
         return ['response' => $content, 'status' => $status];
     }
-    
+
     public static function hydrateUnique(string $class, array $data)
     {
         return $class::hydrate([$data])->first();
-    }
-
-    public static function getToken()
-    {
-        return HelperVendor::getToken();
-    }
-
-    public static function getSlug()
-    {
-        return HelperVendor::getSlug();
-    }
-
-    public static function getCustomer()
-    {
-        return HelperVendor::getCustomer();
-    }
-
-    public static function getContract()
-    {
-        return HelperVendor::getContract();
-    }
-
-    public static function getUserConfig()
-    {
-        return HelperVendor::getUserConfig();
-    }
-
-    public static function getSessionData()
-    {
-        return HelperVendor::getSessionData();
     }
 
     public static function getUserId()
     {
         return Auth::id();
     }
-    
+
     public static function getUser()
     {
         return Auth::user();
@@ -102,39 +72,24 @@ class Helper
         return (strlen($name) > 25) ? substr($name, 0, 25) . '...' : $name;
     }
 
-    public static function readConfig()
-    {
-        return HelperVendor::readConfig();
-    }
-    
     public static function readTemplateConfig()
     {
         return config('template');
     }
 
-    public static function isMaster()
-    {
-        return HelperVendor::isMaster();
-    }
-
-    public static function isAdmin()
-    {
-        return HelperVendor::isAdmin();
-    }
-    
     public static function loadMessage(string $message, bool $status = true, bool $packaged = true)
     {
         return self::view('components.messages.' . (($status) ? 'success' : 'danger'), compact('message'), $packaged)->render();
     }
 
-    public static function notAllowedResponse(Request $request,  bool $packaged = true)
+    public static function notAllowedResponse(Request $request, bool $packaged = true)
     {
         $isAjax = ($request->ajax() || $request->wantsJson());
         $viewName = ($isAjax) ? 'pages.allowance.not_allowed_content' : 'pages.allowance.not_allowed';
 
         $view_prefix = self::getViewPrefix();
         $packaged_assets_prefix = self::getRootFolderNameOfAssets();
-        
+
         $view = self::view($viewName, compact('view_prefix', 'packaged_assets_prefix'), $packaged)->render();
 
         if (!$isAjax) {
@@ -146,8 +101,10 @@ class Helper
             'wrapped' => false
         ]));
     }
-    
-    public static function view(string $path, array $data = [], bool $packaged = false)
+
+    public static function view(
+        string $path, array $data = [], bool $packaged = false
+    )
     {
         $path = (!$packaged) ? $path : self::getViewPrefix() . $path;
         return view($path, $data);
@@ -168,4 +125,19 @@ class Helper
         return $result;
     }
 
+    public static function defaultExecutationToReplyJson(\Closure $callable)
+    {
+        try {
+            $data = $callable();
+            $status = true;
+            $response = $data;
+        } catch (\Throwable $ex) {
+            $message = $ex->getMessage();
+            $status = false;
+            $response = ['message' => $message];
+        }
+
+        header('Content-Type: application/json');
+        echo json_encode(self::createDefaultJsonToResponse($status, $response));
+    }
 }

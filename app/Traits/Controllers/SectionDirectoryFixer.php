@@ -8,7 +8,7 @@ trait SectionDirectoryFixer
     {
         return parent::getScreen() . '.' . parent::getSectionScreen();
     }
-    
+
     public function getAssetsPath()
     {
         return str_replace('.', '/', $this->getFullScreen());
