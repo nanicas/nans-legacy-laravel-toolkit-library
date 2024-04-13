@@ -1,13 +1,13 @@
 <?php
 
-namespace Zevitagem\LaravelToolkit\Services\Config;
+namespace Nanicas\LegacyLaravelToolkit\Services\Config;
 
-use Zevitagem\LaravelToolkit\Services\AbstractCrudService;
-use Zevitagem\LaravelToolkit\Repositories\Config\ComponentConfigRepository;
+use Nanicas\LegacyLaravelToolkit\Services\AbstractCrudService;
+use Nanicas\LegacyLaravelToolkit\Repositories\Config\ComponentConfigRepository;
 use Zevitagem\LegoAuth\Helpers\Helper;
-use Zevitagem\LaravelToolkit\Repositories\Config\CategoryConfigRepository;
-use Zevitagem\LaravelToolkit\Validators\Config\ComponentConfigValidator;
-use Zevitagem\LaravelToolkit\Handlers\Config\ComponentConfigHandler;
+use Nanicas\LegacyLaravelToolkit\Repositories\Config\CategoryConfigRepository;
+use Nanicas\LegacyLaravelToolkit\Validators\Config\ComponentConfigValidator;
+use Nanicas\LegacyLaravelToolkit\Handlers\Config\ComponentConfigHandler;
 
 class ComponentConfigService extends AbstractCrudService
 {

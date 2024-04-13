@@ -1,6 +1,6 @@
 <?php
 
-namespace Zevitagem\LaravelToolkit\Hydrators;
+namespace Nanicas\LegacyLaravelToolkit\Hydrators;
 
 use Zevitagem\LegoAuth\Hydrators\SlugHydrator as BaseSlugHydrator;
 

@@ -1,9 +1,9 @@
 <?php
 
-namespace Zevitagem\LaravelToolkit\Http\Controllers\Pages;
+namespace Nanicas\LegacyLaravelToolkit\Http\Controllers\Pages;
 
-use Zevitagem\LaravelToolkit\Services\Site\SiteService;
-use Zevitagem\LaravelToolkit\Helpers\Helper;
+use Nanicas\LegacyLaravelToolkit\Services\Site\SiteService;
+use Nanicas\LegacyLaravelToolkit\Helpers\Helper;
 use Illuminate\Http\Request;
 
 class_alias(Helper::readTemplateConfig()['controllers']['site'],  __NAMESPACE__ . '\SiteBaseAlias');

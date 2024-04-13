@@ -1,9 +1,9 @@
 <?php
 
-namespace Zevitagem\LaravelToolkit\Repositories\Config;
+namespace Nanicas\LegacyLaravelToolkit\Repositories\Config;
 
-use Zevitagem\LaravelToolkit\Repositories\AbstractCrudRepository;
-use Zevitagem\LaravelToolkit\Models\Config\ComponentConfig;
+use Nanicas\LegacyLaravelToolkit\Repositories\AbstractCrudRepository;
+use Nanicas\LegacyLaravelToolkit\Models\Config\ComponentConfig;
 
 class ComponentConfigRepository extends AbstractCrudRepository
 {

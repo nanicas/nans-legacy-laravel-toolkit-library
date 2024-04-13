@@ -1,6 +1,6 @@
 <?php
 
-namespace Zevitagem\LaravelToolkit\Helpers;
+namespace Nanicas\LegacyLaravelToolkit\Helpers;
 
 use Psr\Http\Message\ResponseInterface;
 use Zevitagem\LegoAuth\Helpers\Helper as HelperVendor;

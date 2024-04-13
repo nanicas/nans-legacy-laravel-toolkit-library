@@ -1,6 +1,6 @@
 <?php
 
-namespace Zevitagem\LaravelToolkit\Handlers;
+namespace Nanicas\LegacyLaravelToolkit\Handlers;
 
 class AbstractHandler
 {

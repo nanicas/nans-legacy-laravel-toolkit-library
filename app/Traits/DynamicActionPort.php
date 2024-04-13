@@ -1,9 +1,9 @@
 <?php
 
-namespace Zevitagem\LaravelToolkit\Traits;
+namespace Nanicas\LegacyLaravelToolkit\Traits;
 
-use Zevitagem\LaravelToolkit\Exceptions\ValidatorException;
-use Zevitagem\LaravelToolkit\Exceptions\CustomValidatorException;
+use Nanicas\LegacyLaravelToolkit\Exceptions\ValidatorException;
+use Nanicas\LegacyLaravelToolkit\Exceptions\CustomValidatorException;
 use App\Helpers\Helper;
 use Illuminate\Http\Request;
 use Throwable;

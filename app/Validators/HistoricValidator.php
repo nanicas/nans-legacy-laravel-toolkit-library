@@ -1,9 +1,9 @@
 <?php
 
-namespace Zevitagem\LaravelToolkit\Validators;
+namespace Nanicas\LegacyLaravelToolkit\Validators;
 
-use Zevitagem\LaravelToolkit\Validators\AbstractValidator;
-use Zevitagem\LaravelToolkit\Traits\Validators\CrudValidator;
+use Nanicas\LegacyLaravelToolkit\Validators\AbstractValidator;
+use Nanicas\LegacyLaravelToolkit\Traits\Validators\CrudValidator;
 
 class HistoricValidator extends AbstractValidator
 {

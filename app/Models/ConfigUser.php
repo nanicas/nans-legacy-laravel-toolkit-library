@@ -1,6 +1,6 @@
 <?php
 
-namespace Zevitagem\LaravelToolkit\Models;
+namespace Nanicas\LegacyLaravelToolkit\Models;
 
 use Zevitagem\LegoAuth\Models\Laravel\ConfigUserL;
 

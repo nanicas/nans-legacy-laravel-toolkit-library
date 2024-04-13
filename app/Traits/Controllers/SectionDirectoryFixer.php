@@ -1,6 +1,6 @@
 <?php
 
-namespace Zevitagem\LaravelToolkit\Traits\Controllers;
+namespace Nanicas\LegacyLaravelToolkit\Traits\Controllers;
 
 trait SectionDirectoryFixer
 {

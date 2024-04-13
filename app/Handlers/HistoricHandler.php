@@ -1,10 +1,10 @@
 <?php
 
-namespace Zevitagem\LaravelToolkit\Handlers;
+namespace Nanicas\LegacyLaravelToolkit\Handlers;
 
-use Zevitagem\LaravelToolkit\Handlers\AbstractHandler;
-use Zevitagem\LaravelToolkit\Helpers\Helper;
-use Zevitagem\LaravelToolkit\Traits\Handlers\CrudHandler;
+use Nanicas\LegacyLaravelToolkit\Handlers\AbstractHandler;
+use Nanicas\LegacyLaravelToolkit\Helpers\Helper;
+use Nanicas\LegacyLaravelToolkit\Traits\Handlers\CrudHandler;
 
 class HistoricHandler extends AbstractHandler
 {

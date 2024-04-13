@@ -1,14 +1,14 @@
 <?php
 
-namespace Zevitagem\LaravelToolkit\Services;
+namespace Nanicas\LegacyLaravelToolkit\Services;
 
-use Zevitagem\LaravelToolkit\Services\AbstractService;
-use Zevitagem\LaravelToolkit\Repositories\ConfigUserRepository;
-use Zevitagem\LaravelToolkit\Helpers\Helper;
-use Zevitagem\LaravelToolkit\Validators\ConfigUserValidator;
-use Zevitagem\LaravelToolkit\Handlers\ConfigUserHandler;
-use Zevitagem\LaravelToolkit\Exceptions\CrudException;
-use Zevitagem\LaravelToolkit\Repositories\PainelRepository;
+use Nanicas\LegacyLaravelToolkit\Services\AbstractService;
+use Nanicas\LegacyLaravelToolkit\Repositories\ConfigUserRepository;
+use Nanicas\LegacyLaravelToolkit\Helpers\Helper;
+use Nanicas\LegacyLaravelToolkit\Validators\ConfigUserValidator;
+use Nanicas\LegacyLaravelToolkit\Handlers\ConfigUserHandler;
+use Nanicas\LegacyLaravelToolkit\Exceptions\CrudException;
+use Nanicas\LegacyLaravelToolkit\Repositories\PainelRepository;
 
 class ConfigUserService extends AbstractService
 {

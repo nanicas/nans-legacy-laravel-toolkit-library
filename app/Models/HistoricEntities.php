@@ -1,8 +1,8 @@
 <?php
 
-namespace Zevitagem\LaravelToolkit\Models;
+namespace Nanicas\LegacyLaravelToolkit\Models;
 
-use Zevitagem\LaravelToolkit\Models\AbstractModel;
+use Nanicas\LegacyLaravelToolkit\Models\AbstractModel;
 
 class HistoricEntities extends AbstractModel
 {

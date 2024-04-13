@@ -1,10 +1,10 @@
 <?php
 
-namespace Zevitagem\LaravelToolkit\Models\Config;
+namespace Nanicas\LegacyLaravelToolkit\Models\Config;
 
-use Zevitagem\LaravelToolkit\Models\AbstractModel;
+use Nanicas\LegacyLaravelToolkit\Models\AbstractModel;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Zevitagem\LaravelToolkit\Models\Config\ComponentConfig;
+use Nanicas\LegacyLaravelToolkit\Models\Config\ComponentConfig;
 
 class EntityConfig extends AbstractModel
 {

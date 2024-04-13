@@ -1,9 +1,9 @@
 <?php
 
-namespace Zevitagem\LaravelToolkit\Http\Controllers\Pages;
+namespace Nanicas\LegacyLaravelToolkit\Http\Controllers\Pages;
 
-use Zevitagem\LaravelToolkit\Services\HomeService;
-use Zevitagem\LaravelToolkit\Helpers\Helper;
+use Nanicas\LegacyLaravelToolkit\Services\HomeService;
+use Nanicas\LegacyLaravelToolkit\Helpers\Helper;
 
 class_alias(Helper::readTemplateConfig()['controllers']['dashboard'],  __NAMESPACE__ . '\DashboardControllerAlias');
 

@@ -1,8 +1,8 @@
 <?php
 
-namespace Zevitagem\LaravelToolkit\Repositories;
+namespace Nanicas\LegacyLaravelToolkit\Repositories;
 
-use Zevitagem\LaravelToolkit\Repositories\AbstractRepository;
+use Nanicas\LegacyLaravelToolkit\Repositories\AbstractRepository;
 
 abstract class DatabaseRepository extends AbstractRepository
 {

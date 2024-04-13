@@ -1,6 +1,6 @@
 <?php
 
-namespace Zevitagem\LaravelToolkit\Http\Controllers;
+namespace Nanicas\LegacyLaravelToolkit\Http\Controllers;
 
 use Illuminate\Support\Facades\View;
 use Illuminate\Http\Request;

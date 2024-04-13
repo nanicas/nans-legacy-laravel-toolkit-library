@@ -1,9 +1,9 @@
 <?php
 
-namespace Zevitagem\LaravelToolkit\Http\Controllers\Pages\Config;
+namespace Nanicas\LegacyLaravelToolkit\Http\Controllers\Pages\Config;
 
-use Zevitagem\LaravelToolkit\Helpers\Helper;
-use Zevitagem\LaravelToolkit\Traits\IsConfigurationPageSection;
+use Nanicas\LegacyLaravelToolkit\Helpers\Helper;
+use Nanicas\LegacyLaravelToolkit\Traits\IsConfigurationPageSection;
 
 class_alias(Helper::readTemplateConfig()['controllers']['crud'], __NAMESPACE__ . '\CrudControllerAlias');
 

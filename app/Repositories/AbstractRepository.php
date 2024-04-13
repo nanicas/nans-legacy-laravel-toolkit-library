@@ -1,6 +1,6 @@
 <?php
 
-namespace Zevitagem\LaravelToolkit\Repositories;
+namespace Nanicas\LegacyLaravelToolkit\Repositories;
 
 abstract class AbstractRepository
 {

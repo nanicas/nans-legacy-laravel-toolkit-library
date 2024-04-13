@@ -1,10 +1,10 @@
 <?php
 
-namespace Zevitagem\LaravelToolkit\Http\Controllers\Pages\Config;
+namespace Nanicas\LegacyLaravelToolkit\Http\Controllers\Pages\Config;
 
-use Zevitagem\LaravelToolkit\Services\Config\EntityConfigService;
+use Nanicas\LegacyLaravelToolkit\Services\Config\EntityConfigService;
 use Illuminate\Http\Request;
-use Zevitagem\LaravelToolkit\Helpers\Helper;
+use Nanicas\LegacyLaravelToolkit\Helpers\Helper;
 
 class_alias(Helper::readTemplateConfig()['controllers']['base_config'],  __NAMESPACE__ . '\BaseConfigControllerAlias');
 

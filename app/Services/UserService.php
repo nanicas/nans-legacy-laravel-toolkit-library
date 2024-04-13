@@ -1,12 +1,12 @@
 <?php
 
-namespace Zevitagem\LaravelToolkit\Services;
+namespace Nanicas\LegacyLaravelToolkit\Services;
 
-use Zevitagem\LaravelToolkit\Services\AbstractService;
+use Nanicas\LegacyLaravelToolkit\Services\AbstractService;
 use Zevitagem\LegoAuth\Services\UserService as ExternalUserService;
 use Zevitagem\LegoAuth\Helpers\Helper as ExternalHelper;
 use Zevitagem\LegoAuth\Services\SessionService;
-use Zevitagem\LaravelToolkit\Repositories\UserRepository;
+use Nanicas\LegacyLaravelToolkit\Repositories\UserRepository;
 
 class UserService extends AbstractService
 {

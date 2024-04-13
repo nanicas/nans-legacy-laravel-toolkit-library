@@ -1,8 +1,8 @@
 <?php
 
-namespace Zevitagem\LaravelToolkit\Validators\Config;
+namespace Nanicas\LegacyLaravelToolkit\Validators\Config;
 
-use Zevitagem\LaravelToolkit\Validators\AbstractValidator;
+use Nanicas\LegacyLaravelToolkit\Validators\AbstractValidator;
 
 class ComponentConfigValidator extends AbstractValidator
 {

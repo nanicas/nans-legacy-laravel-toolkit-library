@@ -1,9 +1,9 @@
 <?php
 
-namespace Zevitagem\LaravelToolkit\Validators\Config;
+namespace Nanicas\LegacyLaravelToolkit\Validators\Config;
 
-use Zevitagem\LaravelToolkit\Validators\AbstractValidator;
-use Zevitagem\LaravelToolkit\Traits\Validators\CrudValidator;
+use Nanicas\LegacyLaravelToolkit\Validators\AbstractValidator;
+use Nanicas\LegacyLaravelToolkit\Traits\Validators\CrudValidator;
 
 class CategoryConfigValidator extends AbstractValidator
 {

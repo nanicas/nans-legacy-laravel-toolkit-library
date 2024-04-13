@@ -1,11 +1,11 @@
 <?php
 
-namespace Zevitagem\LaravelToolkit\Services\Config;
+namespace Nanicas\LegacyLaravelToolkit\Services\Config;
 
-use Zevitagem\LaravelToolkit\Services\AbstractCrudService;
-use Zevitagem\LaravelToolkit\Repositories\Config\CategoryConfigRepository;
-use Zevitagem\LaravelToolkit\Validators\Config\CategoryConfigValidator;
-use Zevitagem\LaravelToolkit\Handlers\Config\CategoryConfigHandler;
+use Nanicas\LegacyLaravelToolkit\Services\AbstractCrudService;
+use Nanicas\LegacyLaravelToolkit\Repositories\Config\CategoryConfigRepository;
+use Nanicas\LegacyLaravelToolkit\Validators\Config\CategoryConfigValidator;
+use Nanicas\LegacyLaravelToolkit\Handlers\Config\CategoryConfigHandler;
 
 class CategoryConfigService extends AbstractCrudService
 {

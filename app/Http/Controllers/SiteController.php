@@ -1,9 +1,9 @@
 <?php
 
-namespace Zevitagem\LaravelToolkit\Http\Controllers;
+namespace Nanicas\LegacyLaravelToolkit\Http\Controllers;
 
-use Zevitagem\LaravelToolkit\Traits\AvailabilityWithService;
-use Zevitagem\LaravelToolkit\Helpers\Helper;
+use Nanicas\LegacyLaravelToolkit\Traits\AvailabilityWithService;
+use Nanicas\LegacyLaravelToolkit\Helpers\Helper;
 
 class_alias(Helper::readTemplateConfig()['controllers']['base'],  __NAMESPACE__ . '\BaseControllerAlias');
 

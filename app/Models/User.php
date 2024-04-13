@@ -1,12 +1,12 @@
 <?php
 
-namespace Zevitagem\LaravelToolkit\Models;
+namespace Nanicas\LegacyLaravelToolkit\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
-use Zevitagem\LaravelToolkit\Traits\AttributesResourceModel;
+use Nanicas\LegacyLaravelToolkit\Traits\AttributesResourceModel;
 
 class User extends Authenticatable
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Zevitagem\LaravelToolkit\Traits\Handlers;
+namespace Nanicas\LegacyLaravelToolkit\Traits\Handlers;
 
 trait CrudHandler
 {

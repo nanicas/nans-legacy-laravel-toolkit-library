@@ -1,10 +1,10 @@
 <?php
 
-namespace Zevitagem\LaravelToolkit\Repositories;
+namespace Nanicas\LegacyLaravelToolkit\Repositories;
 
-use Zevitagem\LaravelToolkit\Repositories\DatabaseRepository;
-use Zevitagem\LaravelToolkit\Exceptions\CrudException;
-use Zevitagem\LaravelToolkit\Models\AbstractModel;
+use Nanicas\LegacyLaravelToolkit\Repositories\DatabaseRepository;
+use Nanicas\LegacyLaravelToolkit\Exceptions\CrudException;
+use Nanicas\LegacyLaravelToolkit\Models\AbstractModel;
 
 abstract class AbstractCrudRepository extends DatabaseRepository
 {

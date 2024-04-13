@@ -1,10 +1,10 @@
 <?php
 
-namespace Zevitagem\LaravelToolkit\Services\Historic;
+namespace Nanicas\LegacyLaravelToolkit\Services\Historic;
 
-use Zevitagem\LaravelToolkit\Repositories\HistoricEntitiesRepository;
-use Zevitagem\LaravelToolkit\Traits\AvailabilityWithDependencie;
-use Zevitagem\LaravelToolkit\Models\Historic;
+use Nanicas\LegacyLaravelToolkit\Repositories\HistoricEntitiesRepository;
+use Nanicas\LegacyLaravelToolkit\Traits\AvailabilityWithDependencie;
+use Nanicas\LegacyLaravelToolkit\Models\Historic;
 
 class CoreRelationEntitiesService
 {

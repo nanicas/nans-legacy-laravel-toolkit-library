@@ -1,10 +1,10 @@
 <?php
 
-namespace Zevitagem\LaravelToolkit\Handlers;
+namespace Nanicas\LegacyLaravelToolkit\Handlers;
 
-use Zevitagem\LaravelToolkit\Handlers\AbstractHandler;
-use Zevitagem\LaravelToolkit\Hydrators\ContractHydrator;
-use Zevitagem\LaravelToolkit\Hydrators\SlugHydrator;
+use Nanicas\LegacyLaravelToolkit\Handlers\AbstractHandler;
+use Nanicas\LegacyLaravelToolkit\Hydrators\ContractHydrator;
+use Nanicas\LegacyLaravelToolkit\Hydrators\SlugHydrator;
 
 class SiteHandler extends AbstractHandler
 {

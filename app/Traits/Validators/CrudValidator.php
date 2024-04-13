@@ -1,8 +1,8 @@
 <?php
 
-namespace Zevitagem\LaravelToolkit\Traits\Validators;
+namespace Nanicas\LegacyLaravelToolkit\Traits\Validators;
 
-use Zevitagem\LaravelToolkit\Models\AbstractModel;
+use Nanicas\LegacyLaravelToolkit\Models\AbstractModel;
 
 trait CrudValidator
 {

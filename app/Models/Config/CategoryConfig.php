@@ -1,8 +1,8 @@
 <?php
 
-namespace Zevitagem\LaravelToolkit\Models\Config;
+namespace Nanicas\LegacyLaravelToolkit\Models\Config;
 
-use Zevitagem\LaravelToolkit\Models\AbstractModel;
+use Nanicas\LegacyLaravelToolkit\Models\AbstractModel;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class CategoryConfig extends AbstractModel

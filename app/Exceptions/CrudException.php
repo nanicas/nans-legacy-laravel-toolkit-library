@@ -1,8 +1,8 @@
 <?php
 
-namespace Zevitagem\LaravelToolkit\Exceptions;
+namespace Nanicas\LegacyLaravelToolkit\Exceptions;
 
-use Zevitagem\LaravelToolkit\Helpers\Helper;
+use Nanicas\LegacyLaravelToolkit\Helpers\Helper;
 
 class CrudException extends \Exception
 {

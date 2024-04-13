@@ -1,11 +1,11 @@
 <?php
 
-namespace Zevitagem\LaravelToolkit\Services\Historic;
+namespace Nanicas\LegacyLaravelToolkit\Services\Historic;
 
-use Zevitagem\LaravelToolkit\Repositories\Config\CategoryConfigRepository;
-use Zevitagem\LaravelToolkit\Traits\AvailabilityWithDependencie;
-use Zevitagem\LaravelToolkit\Models\Historic;
-use Zevitagem\LaravelToolkit\Services\Historic\CoreRelationEntitiesService;
+use Nanicas\LegacyLaravelToolkit\Repositories\Config\CategoryConfigRepository;
+use Nanicas\LegacyLaravelToolkit\Traits\AvailabilityWithDependencie;
+use Nanicas\LegacyLaravelToolkit\Models\Historic;
+use Nanicas\LegacyLaravelToolkit\Services\Historic\CoreRelationEntitiesService;
 
 class ContainerRelationEntitiesService
 {

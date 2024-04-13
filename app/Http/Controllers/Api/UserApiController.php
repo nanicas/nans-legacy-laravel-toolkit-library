@@ -1,9 +1,9 @@
 <?php
 
-namespace Zevitagem\LaravelToolkit\Http\Controllers\Api;
+namespace Nanicas\LegacyLaravelToolkit\Http\Controllers\Api;
 
-use Zevitagem\LaravelToolkit\Services\Api\UserApiService;
-use Zevitagem\LaravelToolkit\Http\Controllers\Api\AbstractApiController;
+use Nanicas\LegacyLaravelToolkit\Services\Api\UserApiService;
+use Nanicas\LegacyLaravelToolkit\Http\Controllers\Api\AbstractApiController;
 use Zevitagem\LegoAuth\Helpers\ApiState;
 use Zevitagem\LegoAuth\Controllers\Api\AbstractApiController;
 use Zevitagem\LegoAuth\Services\Api\UserApiService;

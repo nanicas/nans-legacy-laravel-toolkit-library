@@ -1,12 +1,12 @@
 <?php
 
-namespace Zevitagem\LaravelToolkit\Services\Config;
+namespace Nanicas\LegacyLaravelToolkit\Services\Config;
 
-use Zevitagem\LaravelToolkit\Services\AbstractCrudService;
-use Zevitagem\LaravelToolkit\Repositories\Config\AddressConfigRepository;
-use Zevitagem\LaravelToolkit\Validators\Config\AddressConfigValidator;
-use Zevitagem\LaravelToolkit\Handlers\Config\AddressConfigHandler;
-use Zevitagem\LaravelToolkit\Models\Config\DataConfig;
+use Nanicas\LegacyLaravelToolkit\Services\AbstractCrudService;
+use Nanicas\LegacyLaravelToolkit\Repositories\Config\AddressConfigRepository;
+use Nanicas\LegacyLaravelToolkit\Validators\Config\AddressConfigValidator;
+use Nanicas\LegacyLaravelToolkit\Handlers\Config\AddressConfigHandler;
+use Nanicas\LegacyLaravelToolkit\Models\Config\DataConfig;
 
 class AddressConfigService extends AbstractCrudService
 {

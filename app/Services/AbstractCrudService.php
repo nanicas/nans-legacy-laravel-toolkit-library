@@ -1,9 +1,9 @@
 <?php
 
-namespace Zevitagem\LaravelToolkit\Services;
+namespace Nanicas\LegacyLaravelToolkit\Services;
 
-use Zevitagem\LaravelToolkit\Services\AbstractService;
-use Zevitagem\LaravelToolkit\Helpers\Helper;
+use Nanicas\LegacyLaravelToolkit\Services\AbstractService;
+use Nanicas\LegacyLaravelToolkit\Helpers\Helper;
 
 class AbstractCrudService extends AbstractService
 {

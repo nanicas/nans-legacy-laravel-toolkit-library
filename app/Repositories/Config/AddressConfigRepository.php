@@ -1,9 +1,9 @@
 <?php
 
-namespace Zevitagem\LaravelToolkit\Repositories\Config;
+namespace Nanicas\LegacyLaravelToolkit\Repositories\Config;
 
-use Zevitagem\LaravelToolkit\Repositories\AbstractCrudRepository;
-use Zevitagem\LaravelToolkit\Models\Config\DataAddressConfig;
+use Nanicas\LegacyLaravelToolkit\Repositories\AbstractCrudRepository;
+use Nanicas\LegacyLaravelToolkit\Models\Config\DataAddressConfig;
 
 class AddressConfigRepository extends AbstractCrudRepository
 {

@@ -1,8 +1,8 @@
 <?php
 
-namespace Zevitagem\LaravelToolkit\Services;
+namespace Nanicas\LegacyLaravelToolkit\Services;
 
-use Zevitagem\LaravelToolkit\Services\AbstractService;
+use Nanicas\LegacyLaravelToolkit\Services\AbstractService;
 use Zevitagem\LegoAuth\Services\ApplicationService;
 use Zevitagem\LegoAuth\Filters\ApplicationRemoverItself;
 

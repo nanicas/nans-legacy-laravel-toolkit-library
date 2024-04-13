@@ -1,13 +1,13 @@
 <?php
 
-namespace Zevitagem\LaravelToolkit\Validators\Config;
+namespace Nanicas\LegacyLaravelToolkit\Validators\Config;
 
-use Zevitagem\LaravelToolkit\Validators\AbstractValidator;
-use Zevitagem\LaravelToolkit\Repositories\Config\ComponentConfigRepository;
-use Zevitagem\LaravelToolkit\Helpers\Helper;
-use Zevitagem\LaravelToolkit\Staters\ModelsStater;
-use Zevitagem\LaravelToolkit\Traits\AvailabilityWithDependencie;
-use Zevitagem\LaravelToolkit\Traits\Validators\CrudValidator;
+use Nanicas\LegacyLaravelToolkit\Validators\AbstractValidator;
+use Nanicas\LegacyLaravelToolkit\Repositories\Config\ComponentConfigRepository;
+use Nanicas\LegacyLaravelToolkit\Helpers\Helper;
+use Nanicas\LegacyLaravelToolkit\Staters\ModelsStater;
+use Nanicas\LegacyLaravelToolkit\Traits\AvailabilityWithDependencie;
+use Nanicas\LegacyLaravelToolkit\Traits\Validators\CrudValidator;
 
 class EntityConfigValidator extends AbstractValidator
 {

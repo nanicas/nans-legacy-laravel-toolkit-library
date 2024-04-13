@@ -1,6 +1,6 @@
 <?php
 
-namespace Zevitagem\LaravelToolkit\Helpers;
+namespace Nanicas\LegacyLaravelToolkit\Helpers;
 
 class EntityConfigImageHelper
 {

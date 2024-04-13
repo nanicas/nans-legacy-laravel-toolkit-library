@@ -1,8 +1,8 @@
 <?php
 
-namespace Zevitagem\LaravelToolkit\Handlers\Config;
+namespace Nanicas\LegacyLaravelToolkit\Handlers\Config;
 
-use Zevitagem\LaravelToolkit\Handlers\AbstractHandler;
+use Nanicas\LegacyLaravelToolkit\Handlers\AbstractHandler;
 
 class AddressConfigHandler extends AbstractHandler
 {

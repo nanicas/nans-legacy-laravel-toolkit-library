@@ -1,10 +1,10 @@
 <?php
 
-namespace Zevitagem\LaravelToolkit\Services\Site;
+namespace Nanicas\LegacyLaravelToolkit\Services\Site;
 
-use Zevitagem\LaravelToolkit\Services\AbstractService;
-use Zevitagem\LaravelToolkit\Repositories\SiteEntityRepository;
-use Zevitagem\LaravelToolkit\Repositories\Config\DataConfigRepository;
+use Nanicas\LegacyLaravelToolkit\Services\AbstractService;
+use Nanicas\LegacyLaravelToolkit\Repositories\SiteEntityRepository;
+use Nanicas\LegacyLaravelToolkit\Repositories\Config\DataConfigRepository;
 
 class DataSiteService extends AbstractService
 {

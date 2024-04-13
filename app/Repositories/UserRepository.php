@@ -1,9 +1,9 @@
 <?php
 
-namespace Zevitagem\LaravelToolkit\Repositories;
+namespace Nanicas\LegacyLaravelToolkit\Repositories;
 
-use Zevitagem\LaravelToolkit\Repositories\AbstractCrudRepository;
-use Zevitagem\LaravelToolkit\Models\User;
+use Nanicas\LegacyLaravelToolkit\Repositories\AbstractCrudRepository;
+use Nanicas\LegacyLaravelToolkit\Models\User;
 
 class UserRepository extends AbstractCrudRepository
 {

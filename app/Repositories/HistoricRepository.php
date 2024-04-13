@@ -1,9 +1,9 @@
 <?php
 
-namespace Zevitagem\LaravelToolkit\Repositories;
+namespace Nanicas\LegacyLaravelToolkit\Repositories;
 
-use Zevitagem\LaravelToolkit\Repositories\AbstractCrudRepository;
-use Zevitagem\LaravelToolkit\Models\Historic;
+use Nanicas\LegacyLaravelToolkit\Repositories\AbstractCrudRepository;
+use Nanicas\LegacyLaravelToolkit\Models\Historic;
 
 class HistoricRepository extends AbstractCrudRepository
 {

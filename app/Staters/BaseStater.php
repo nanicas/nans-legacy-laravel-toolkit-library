@@ -1,6 +1,6 @@
 <?php
 
-namespace Zevitagem\LaravelToolkit\Staters;
+namespace Nanicas\LegacyLaravelToolkit\Staters;
 
 abstract class BaseStater
 {

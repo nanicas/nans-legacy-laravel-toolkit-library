@@ -1,14 +1,14 @@
 <?php
 
-namespace Zevitagem\LaravelToolkit\Http\Controllers\Pages;
+namespace Nanicas\LegacyLaravelToolkit\Http\Controllers\Pages;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
-use Zevitagem\LaravelToolkit\Helpers\Helper;
+use Nanicas\LegacyLaravelToolkit\Helpers\Helper;
 use Throwable;
 use DataTables;
-use Zevitagem\LaravelToolkit\Exceptions\ValidatorException;
-use Zevitagem\LaravelToolkit\Exceptions\CustomValidatorException;
+use Nanicas\LegacyLaravelToolkit\Exceptions\ValidatorException;
+use Nanicas\LegacyLaravelToolkit\Exceptions\CustomValidatorException;
 
 class_alias(Helper::readTemplateConfig()['helpers']['global'], __NAMESPACE__ . '\HelperAlias');
 class_alias(Helper::readTemplateConfig()['controllers']['dashboard'], __NAMESPACE__ . '\DashboardControllerAlias');

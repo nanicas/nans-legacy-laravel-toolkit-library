@@ -1,6 +1,6 @@
 <?php
 
-namespace Zevitagem\LaravelToolkit\Exceptions;
+namespace Nanicas\LegacyLaravelToolkit\Exceptions;
 
 class ResourceNotFoundException extends \InvalidArgumentException
 {

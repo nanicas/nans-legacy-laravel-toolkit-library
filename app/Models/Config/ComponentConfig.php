@@ -1,10 +1,10 @@
 <?php
 
-namespace Zevitagem\LaravelToolkit\Models\Config;
+namespace Nanicas\LegacyLaravelToolkit\Models\Config;
 
-use Zevitagem\LaravelToolkit\Models\AbstractModel;
+use Nanicas\LegacyLaravelToolkit\Models\AbstractModel;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Zevitagem\LaravelToolkit\Models\Config\CategoryConfig;
+use Nanicas\LegacyLaravelToolkit\Models\Config\CategoryConfig;
 
 class ComponentConfig extends AbstractModel
 {

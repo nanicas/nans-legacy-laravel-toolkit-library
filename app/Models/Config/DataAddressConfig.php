@@ -1,8 +1,8 @@
 <?php
 
-namespace Zevitagem\LaravelToolkit\Models\Config;
+namespace Nanicas\LegacyLaravelToolkit\Models\Config;
 
-use Zevitagem\LaravelToolkit\Models\AbstractModel;
+use Nanicas\LegacyLaravelToolkit\Models\AbstractModel;
 
 class DataAddressConfig extends AbstractModel
 {

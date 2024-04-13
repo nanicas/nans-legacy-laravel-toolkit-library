@@ -1,16 +1,16 @@
 <?php
 
-namespace Zevitagem\LaravelToolkit\Http\Controllers;
+namespace Nanicas\LegacyLaravelToolkit\Http\Controllers;
 
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Support\Facades\View;
-use Zevitagem\LaravelToolkit\Traits\Configurable;
-use Zevitagem\LaravelToolkit\Helpers\Helper;
+use Nanicas\LegacyLaravelToolkit\Traits\Configurable;
+use Nanicas\LegacyLaravelToolkit\Helpers\Helper;
 use Illuminate\Routing\Controller as BaseController;
-use Zevitagem\LaravelToolkit\Traits\AvailabilityWithService;
-use Zevitagem\LaravelToolkit\Staters\AppStater;
+use Nanicas\LegacyLaravelToolkit\Traits\AvailabilityWithService;
+use Nanicas\LegacyLaravelToolkit\Staters\AppStater;
 use Illuminate\Http\Request;
 
 class Controller extends BaseController

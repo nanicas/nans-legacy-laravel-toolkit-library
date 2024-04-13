@@ -1,8 +1,8 @@
 <?php
 
-namespace Zevitagem\LaravelToolkit\Traits;
+namespace Nanicas\LegacyLaravelToolkit\Traits;
 
-//use Zevitagem\LaravelToolkit\Services\AbstractService;
+//use Nanicas\LegacyLaravelToolkit\Services\AbstractService;
 
 trait AvailabilityWithService
 {

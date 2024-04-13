@@ -1,10 +1,10 @@
 <?php
 
-namespace Zevitagem\LaravelToolkit\Services\Site;
+namespace Nanicas\LegacyLaravelToolkit\Services\Site;
 
-use Zevitagem\LaravelToolkit\Services\AbstractService;
-use Zevitagem\LaravelToolkit\Services\Site\ConfigSiteService;
-use Zevitagem\LaravelToolkit\Services\Site\DataSiteService;
+use Nanicas\LegacyLaravelToolkit\Services\AbstractService;
+use Nanicas\LegacyLaravelToolkit\Services\Site\ConfigSiteService;
+use Nanicas\LegacyLaravelToolkit\Services\Site\DataSiteService;
 
 class SiteService extends AbstractService
 {

@@ -1,9 +1,9 @@
 <?php
 
-namespace Zevitagem\LaravelToolkit\Validators;
+namespace Nanicas\LegacyLaravelToolkit\Validators;
 
-use Zevitagem\LaravelToolkit\Helpers\Helper;
-//use Zevitagem\LaravelToolkit\Staters\AppStater;
+use Nanicas\LegacyLaravelToolkit\Helpers\Helper;
+//use Nanicas\LegacyLaravelToolkit\Staters\AppStater;
 
 class AbstractValidator
 {

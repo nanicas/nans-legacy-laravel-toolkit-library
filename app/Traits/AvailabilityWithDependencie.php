@@ -1,6 +1,6 @@
 <?php
 
-namespace Zevitagem\LaravelToolkit\Traits;
+namespace Nanicas\LegacyLaravelToolkit\Traits;
 
 trait AvailabilityWithDependencie
 {

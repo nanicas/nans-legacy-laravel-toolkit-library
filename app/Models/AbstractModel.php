@@ -1,9 +1,9 @@
 <?php
 
-namespace Zevitagem\LaravelToolkit\Models;
+namespace Nanicas\LegacyLaravelToolkit\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Zevitagem\LaravelToolkit\Traits\AttributesResourceModel;
+use Nanicas\LegacyLaravelToolkit\Traits\AttributesResourceModel;
 
 class AbstractModel extends Model
 {

@@ -1,12 +1,12 @@
 <?php
 
-namespace Zevitagem\LaravelToolkit\Services;
+namespace Nanicas\LegacyLaravelToolkit\Services;
 
-use Zevitagem\LaravelToolkit\Handlers\AbstractHandler;
-use Zevitagem\LaravelToolkit\Validators\AbstractValidator;
-use Zevitagem\LaravelToolkit\Exceptions\ValidatorException;
-use Zevitagem\LaravelToolkit\Traits\AvailabilityWithDependencie;
-use Zevitagem\LaravelToolkit\Traits\Configurable;
+use Nanicas\LegacyLaravelToolkit\Handlers\AbstractHandler;
+use Nanicas\LegacyLaravelToolkit\Validators\AbstractValidator;
+use Nanicas\LegacyLaravelToolkit\Exceptions\ValidatorException;
+use Nanicas\LegacyLaravelToolkit\Traits\AvailabilityWithDependencie;
+use Nanicas\LegacyLaravelToolkit\Traits\Configurable;
 
 abstract class AbstractService
 {

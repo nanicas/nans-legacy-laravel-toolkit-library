@@ -1,8 +1,8 @@
 <?php
 
-namespace Zevitagem\LaravelToolkit\Staters;
+namespace Nanicas\LegacyLaravelToolkit\Staters;
 
-use Zevitagem\LaravelToolkit\Staters\BaseStater;
+use Nanicas\LegacyLaravelToolkit\Staters\BaseStater;
 
 class ModelsStater extends BaseStater
 {
