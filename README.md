@@ -1,0 +1,1 @@
+- Falta remover o "lego_auth"

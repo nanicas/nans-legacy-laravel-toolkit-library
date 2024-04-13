@@ -1,0 +1,22 @@
+{
+    "name": "nanicas/legacy-laravel-toolkit-library",
+    "type": "library",
+    "version": "1.0.0",
+    "description": "Abstraction of all common logic with laravel",
+    "keywords": ["toolkit", "laravel", "core"],
+    "homepage": "",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "José Victor da Silva",
+            "email": "josevictor.jvds@gmail.com",
+            "homepage": "https://www.linkedin.com/in/jos%C3%A9-victor-da-silva-b008a176/",
+            "role": "Developer"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Nanicas\\LegacyLaravelToolkit\\": "app/"
+        }
+    }
+}
