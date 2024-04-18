@@ -8,8 +8,7 @@ use Illuminate\Http\Request;
 
 class Helper
 {
-    //const VIEW_PREFIX = 'default_legacy_template::';
-    const VIEW_PREFIX = 'presentation_template::';
+    const VIEW_PREFIX = 'legacy_laravel_toolkit_view_library::';
 
     public static function getViewPrefix()
     {
@@ -18,7 +17,7 @@ class Helper
 
     public static function getRootFolderNameOfAssets()
     {
-        return 'presentation_template';
+        return 'vendor/legacy_laravel_toolkit_view_library';
     }
 
     public static function getAppId()
