@@ -87,7 +87,7 @@ trait CrudValidator
 
     protected function ownedByLoggedUser()
     {
-        $belongs = true;
+        $belongs = false;
         if (defined(static::class . '::BELONGS_TO_LOGGED_USER')) {
             $belongs = static::BELONGS_TO_LOGGED_USER;
         }

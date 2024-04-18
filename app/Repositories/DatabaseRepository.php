@@ -14,7 +14,7 @@ abstract class DatabaseRepository extends AbstractRepository
         return $this->getModel()->getTable();
     }
 
-    protected function paginate($query)
+    protected function paginate(object $query)
     {
         return $query->paginate(static::PAGINATE_MAX_ROWS);
     }
@@ -54,36 +54,16 @@ abstract class DatabaseRepository extends AbstractRepository
         return $model->delete();
     }
 
-    public function getAllBySlug(int $slug)
-    {
-        $rows = $this->getModel()->where([
-            'slug' => $slug
-        ]);
-
-        return $rows->get();
-    }
-
     public function getByCondition(array $condition)
     {
-        $rows = $this->getModel()->where($condition);
-
-        return $rows->get();
-    }
-
-    public function getBySlug(int $slug)
-    {
-        $row = $this->getModel()->where([
-            'slug' => $slug
-        ]);
-
-        return ($row->count() > 0) ? $row->first() : null;
+        return $this->getModel()->where($condition)->get();
     }
 
     public function getAllActive()
     {
         return $this->getModel()->where([
-                    'active' => 1
-                ])->get();
+            'active' => 1
+        ])->get();
     }
 
     public function getAll()
@@ -96,16 +76,6 @@ abstract class DatabaseRepository extends AbstractRepository
         $query = $this->getModel();
 
         return $this->paginate($query);
-    }
-
-    public function getByIdAndSlug(int $id, int $slug)
-    {
-        $row = $this->getModel()->where([
-            'id' => $id,
-            'slug' => $slug
-        ]);
-
-        return ($row->count() > 0) ? $row->first() : null;
     }
 
     public function destroy(int $id)
@@ -121,5 +91,10 @@ abstract class DatabaseRepository extends AbstractRepository
     public function getByIds(array $ids)
     {
         return $this->getModel()->whereIn('id', $ids)->get();
+    }
+
+    public function getAllQuery()
+    {
+        return $this->getModel()->query();
     }
 }
