@@ -73,7 +73,7 @@ class Helper
 
     public static function readTemplateConfig()
     {
-        return config('template');
+        return config('nanicas_legacy_laravel_toolkit');
     }
 
     public static function loadMessage(string $message, bool $status = true, bool $packaged = true)
