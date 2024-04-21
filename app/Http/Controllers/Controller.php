@@ -36,7 +36,7 @@ class Controller extends BaseController
         ]);
 
         if (!$this->existsConfigIndex('packaged')) {
-            $this->configureIndex('packaged', true);
+            $this->configureIndex('packaged', false);
         }
 
         AppStater::setItem('packaged', $this->getConfigIndex('packaged'));
