@@ -3,11 +3,11 @@
 return [
     'datetime_format' => 'd/m/Y H:i:s',
     'helpers' => [
-        'global' => App\Helpers\Helper::class,
+        'global' => App\Helpers\ExampleHelper::class,
     ],
     'controllers' => [
-        'base' => App\Http\Controllers\Controller::class,
-        'dashboard' => App\Http\Controllers\DashboardController::class,
-        //'crud' => App\Http\Controllers\Pages\CrudController::class,
+        'base' => App\Http\Controllers\ExampleController::class,
+        'dashboard' => App\Http\Controllers\ExampleDashboardController::class,
+        'crud' => App\Http\Controllers\Pages\ExampleCrudController::class,
     ]
 ];
