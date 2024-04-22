@@ -1,5 +1,6 @@
 <?php
 /**
+
 namespace App\Helpers;
 
 use Nanicas\LegacyLaravelToolkit\Helpers\Helper as HelperVendor;
@@ -26,4 +27,5 @@ class ExampleHelper extends HelperVendor
         return true;
     }
 }
+
 */
