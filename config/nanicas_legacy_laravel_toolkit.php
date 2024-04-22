@@ -8,6 +8,6 @@ return [
     'controllers' => [
         'base' => App\Http\Controllers\ExampleController::class,
         'dashboard' => App\Http\Controllers\ExampleDashboardController::class,
-        'crud' => App\Http\Controllers\Pages\ExampleCrudController::class,
+        'crud' => App\Http\Controllers\ExampleCrudController::class,
     ]
 ];
