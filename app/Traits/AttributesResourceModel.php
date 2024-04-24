@@ -32,7 +32,7 @@ trait AttributesResourceModel
     public function getFromDatetimeAttribute(string $attr, $format = null)
     {
         if (is_null($format)) {
-            $format = config('template.datetime_format');
+            $format = config('nanicas_legacy_laravel_toolkit.datetime_format');
         }
 
         $datetime = $this->getAttribute($attr);
