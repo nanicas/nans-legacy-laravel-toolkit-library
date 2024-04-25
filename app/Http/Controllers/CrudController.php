@@ -388,7 +388,7 @@ abstract class CrudController extends DashboardControllerAlias
         }
 
         return response()->json(
-            Helper::createDefaultJsonToResponse($status, compact('rows', 'message')),
+            HelperAlias::createDefaultJsonToResponse($status, compact('rows', 'message')),
             $code
         );
     }
