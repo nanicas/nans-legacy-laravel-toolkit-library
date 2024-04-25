@@ -100,4 +100,9 @@ abstract class AbstractCrudService extends AbstractService
 
         return $dataForm;
     }
+
+    public function filter(array $data)
+    {
+        return $this->getRepository()->filter($data);
+    }
 }

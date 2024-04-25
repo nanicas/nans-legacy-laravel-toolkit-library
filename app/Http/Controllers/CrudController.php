@@ -9,6 +9,7 @@ use DataTables;
 use Nanicas\LegacyLaravelToolkit\Exceptions\ValidatorException;
 use Nanicas\LegacyLaravelToolkit\Exceptions\CustomValidatorException;
 use Nanicas\LegacyLaravelToolkit\Helpers\Helper as InternalHelper;
+use Symfony\Component\HttpFoundation\Response;
 
 class_alias(InternalHelper::readTemplateConfig()['helpers']['global'], uniqid() . __NAMESPACE__ . '\HelperAlias');
 class_alias(InternalHelper::readTemplateConfig()['controllers']['dashboard'], __NAMESPACE__ . '\DashboardControllerAlias');
@@ -370,6 +371,26 @@ abstract class CrudController extends DashboardControllerAlias
         }
 
         return self::view(compact('data', 'message', 'status'));
+    }
+
+    public function filter(Request $request)
+    {
+        try {
+            $rows = $this->getService()->filter($request->all());
+            $status = true;
+            $message = '';
+            $code = Response::HTTP_OK;
+        } catch (Throwable $ex) {
+            $status = false;
+            $rows = [];
+            $message = $ex->getMessage() . ' [' . $ex->getFile() . ':' . $ex->getLine() . ']';
+            $code = Response::HTTP_UNPROCESSABLE_ENTITY;
+        }
+
+        return response()->json(
+            Helper::createDefaultJsonToResponse($status, compact('rows', 'message')),
+            $code
+        );
     }
 
     protected function setSafe(bool $value)
