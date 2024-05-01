@@ -2,6 +2,7 @@
 
 namespace Nanicas\LegacyLaravelToolkit\Traits\Validators;
 
+use Illuminate\Database\Eloquent\Model;
 use Nanicas\LegacyLaravelToolkit\Models\AbstractModel;
 
 trait CrudValidator
@@ -130,7 +131,11 @@ trait CrudValidator
     protected function validateRow()
     {
         $data = $this->getData();
-        if (!($data['row'] instanceof AbstractModel)) {
+
+        if (!(
+            $data['row'] instanceof AbstractModel ||
+            is_subclass_of($data['row'], Model::class)
+        )) {
             $this->addError('row_not_found');
         }
     }

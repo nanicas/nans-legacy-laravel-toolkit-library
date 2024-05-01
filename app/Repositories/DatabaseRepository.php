@@ -4,6 +4,7 @@ namespace Nanicas\LegacyLaravelToolkit\Repositories;
 
 use Nanicas\LegacyLaravelToolkit\Repositories\AbstractRepository;
 use Nanicas\LegacyLaravelToolkit\Models\AbstractModel;
+use Illuminate\Database\Eloquent\Model;
 
 abstract class DatabaseRepository extends AbstractRepository
 {
@@ -44,12 +45,12 @@ abstract class DatabaseRepository extends AbstractRepository
         return $this->getModel()->insert($data);
     }
 
-    public function update(AbstractModel $model)
+    public function update(AbstractModel|Model $model)
     {
         return $model->save();
     }
 
-    public function delete(AbstractModel $model)
+    public function delete(AbstractModel|Model $model)
     {
         return $model->delete();
     }

@@ -97,7 +97,6 @@ abstract class AbstractCrudService extends AbstractService
         if (method_exists($this, 'posteriorComplementDataOnShow')) {
             $this->posteriorComplementDataOnShow($dataForm);
         }
-
         return $dataForm;
     }
 

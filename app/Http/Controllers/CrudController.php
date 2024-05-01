@@ -145,14 +145,15 @@ abstract class CrudController extends DashboardControllerAlias
 
         $redirUrl = (method_exists($this, 'getRedirUrl')) ? $this->getRedirUrl($status, $method, [], $data) : (($status) ? route($this->getFullScreen() . '.index', ['state' => 'success_store']) : '');
 
-        $response = HelperAlias::createDefaultJsonToResponse($status,
-                        [
-                            'status' => $status,
-                            'message' => $message,
-                            'resource' => $resource,
-                            'id' => $id,
-                            'url_redir' => $redirUrl
-                        ]
+        $response = HelperAlias::createDefaultJsonToResponse(
+            $status,
+            [
+                'status' => $status,
+                'message' => $message,
+                'resource' => $resource,
+                'id' => $id,
+                'url_redir' => $redirUrl
+            ]
         );
 
         if ($canResponseOnEnd) {
@@ -197,10 +198,10 @@ abstract class CrudController extends DashboardControllerAlias
         $canResponseOnEnd = (!$existsDifferentResponseOnEnd || $this->isValidConfig('response_on_end'));
 
         $response = HelperAlias::createDefaultJsonToResponse($status, [
-                    'status' => $status,
-                    'resource' => $resource,
-                    'message' => $message,
-                    'url_redir' => ($status) ? route($this->getFullScreen() . '.index', ['state' => 'success_update']) : ''
+            'status' => $status,
+            'resource' => $resource,
+            'message' => $message,
+            'url_redir' => ($status) ? route($this->getFullScreen() . '.index', ['state' => 'success_update']) : ''
         ]);
 
         if ($canResponseOnEnd) {
@@ -239,9 +240,9 @@ abstract class CrudController extends DashboardControllerAlias
         }
 
         echo json_encode(HelperAlias::createDefaultJsonToResponse($status, [
-                    'id' => $id,
-                    'status' => $status,
-                    'message' => $message,
+            'id' => $id,
+            'status' => $status,
+            'message' => $message,
         ]));
     }
 
@@ -338,12 +339,12 @@ abstract class CrudController extends DashboardControllerAlias
     protected function createListTable($rows)
     {
         return DataTables::of($rows)
-                        ->addColumn('action', function ($row) {
-                            $screen = $this->getFullScreen();
-                            return view('pages.' . $screen . '.list-buttons', ['row' => $row])->render();
-                        })
-                        ->rawColumns(['action'])
-                        ->make(true);
+            ->addColumn('action', function ($row) {
+                $screen = $this->getFullScreen();
+                return view('pages.' . $screen . '.list-buttons', ['row' => $row])->render();
+            })
+            ->rawColumns(['action'])
+            ->make(true);
     }
 
     public function create(Request $request)
