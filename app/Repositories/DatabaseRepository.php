@@ -99,7 +99,15 @@ abstract class DatabaseRepository extends AbstractRepository
         return $this->getModel()->query();
     }
 
-    public function filter(array $data)
+    public function exists(array $data)
+    {
+        $query = $this->getModel()->newQuery();
+        $query = $query->where($data);
+
+        return $query->exists();
+    }
+
+    public function filter(array $data = [])
     {
         $query = $this->getModel()->newQuery();
 
