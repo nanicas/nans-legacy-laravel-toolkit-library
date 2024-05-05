@@ -97,11 +97,14 @@ abstract class AbstractCrudService extends AbstractService
         if (method_exists($this, 'posteriorComplementDataOnShow')) {
             $this->posteriorComplementDataOnShow($dataForm);
         }
+
         return $dataForm;
     }
 
     public function filter(array $data)
     {
+        parent::handle($data, 'filter');
+
         return $this->getRepository()->filter($data);
     }
 }

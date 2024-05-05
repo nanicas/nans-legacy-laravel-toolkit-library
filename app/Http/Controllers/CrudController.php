@@ -377,6 +377,9 @@ abstract class CrudController extends DashboardControllerAlias
 
     public function filter(Request $request)
     {
+        $this->request = $request;
+        $this->getService()->configureIndex('request', $request);
+
         try {
             $rows = $this->getService()->filter($request->all());
             $status = true;
