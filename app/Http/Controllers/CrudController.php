@@ -332,11 +332,12 @@ abstract class CrudController extends DashboardControllerAlias
         parent::beforeView($request);
 
         $data = $this->getService()->getDataToList();
+        $options = $data['options'] ?? [];
 
-        return $this->createListTable($data['rows']);
+        return $this->createListTable($data['rows'], $options);
     }
 
-    protected function createListTable($rows)
+    protected function createListTable($rows, array $options = [])
     {
         return DataTables::of($rows)
             ->addColumn('action', function ($row) {
