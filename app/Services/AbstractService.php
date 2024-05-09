@@ -48,7 +48,11 @@ abstract class AbstractService
             return;
         }
 
-        $handler->setRequest($this->getConfigIndex('request'));
+        $request = $this->getConfigIndex('request');
+        if ($request) {
+            $handler->setRequest($request);
+        }
+
         $handler->setData($data);
         $handler->run($method);
     }
@@ -60,7 +64,11 @@ abstract class AbstractService
         }
 
         $validator->setData($data);
-        $validator->setRequest($this->getConfigIndex('request'));
+
+        $request = $this->getConfigIndex('request');
+        if ($request) {
+            $validator->setRequest($request);
+        }
 
         if ($validator->run($method) === false) {
             $exception = new ValidatorException($validator->translate());
