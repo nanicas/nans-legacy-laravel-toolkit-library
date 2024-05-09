@@ -35,14 +35,16 @@ class Helper
         $content = $requester->getBody()->getContents();
         $json = json_decode($content, true);
 
-        return $json ?? self::createDefaultJsonToResponse(false,
-                        ['message' => $content]);
+        return $json ?? self::createDefaultJsonToResponse(
+            false,
+            ['message' => $content]
+        );
     }
 
     public static function createDefaultJsonToResponse(
-            bool $status, $content = null
-    )
-    {
+        bool $status,
+        $content = null
+    ) {
         return ['response' => $content, 'status' => $status];
     }
 
@@ -102,9 +104,10 @@ class Helper
     }
 
     public static function view(
-        string $path, array $data = [], bool $packaged = false
-    )
-    {
+        string $path,
+        array $data = [],
+        bool $packaged = false
+    ) {
         $path = (!$packaged) ? $path : self::getViewPrefix() . $path;
         return view($path, $data);
     }
@@ -138,5 +141,10 @@ class Helper
 
         header('Content-Type: application/json');
         echo json_encode(self::createDefaultJsonToResponse($status, $response));
+    }
+
+    public static function cleanRoute(string $route)
+    {
+        return preg_replace("/[^a-zA-Z]/", "", $route);
     }
 }
