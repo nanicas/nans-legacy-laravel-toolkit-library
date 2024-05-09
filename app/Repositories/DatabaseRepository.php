@@ -111,6 +111,11 @@ abstract class DatabaseRepository extends AbstractRepository
     {
         $query = $this->getModel()->newQuery();
 
+        if (isset($data['ids']) && is_array($data['ids'])) {
+            $query = $query->whereIn($this->getModel()->getTable() . '.id', $data['ids']);
+            unset($data['ids']);
+        }
+
         if (!empty($data)) {
             $query = $query->where($data);
         }
