@@ -4,6 +4,7 @@ namespace Nanicas\LegacyLaravelToolkit\Services;
 
 use Nanicas\LegacyLaravelToolkit\Handlers\AbstractHandler;
 use Nanicas\LegacyLaravelToolkit\Validators\AbstractValidator;
+use Nanicas\LegacyLaravelToolkit\Validators\AbstractAPIValidator;
 use Nanicas\LegacyLaravelToolkit\Exceptions\ValidatorException;
 use Nanicas\LegacyLaravelToolkit\Traits\AvailabilityWithDependencie;
 use Nanicas\LegacyLaravelToolkit\Traits\Configurable;
@@ -32,8 +33,9 @@ abstract class AbstractService
         return $this->validator;
     }
 
-    public function setValidator(AbstractValidator $validator)
-    {
+    public function setValidator(
+        AbstractValidator|AbstractAPIValidator $validator
+    ) {
         $this->validator = $validator;
     }
 

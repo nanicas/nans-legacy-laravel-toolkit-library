@@ -2,17 +2,70 @@
 
 namespace Nanicas\LegacyLaravelToolkit\Exceptions;
 
-class ValidatorException extends \Exception
-{
-    public array $errors;
+use Nanicas\LegacyLaravelToolkit\Traits\Configurable;
+use Illuminate\Validation\Validator;
+use Exception;
 
-    public function setErrors(array $errors)
+class ValidatorException extends Exception
+{
+    use Configurable;
+
+    protected array $errors;
+    protected Validator $validator;
+
+    /**
+     * @return array
+     */
+    public function getErrors(): array
+    {
+        return $this->errors;
+    }
+
+    /**
+     * @return Validator
+     */
+    public function getValidator(): Validator
+    {
+        return $this->validator;
+    }
+
+    /**
+     * @param array $errors
+     * @return void
+     */
+    public function setErrors(array $errors): void
     {
         $this->errors = $errors;
     }
 
-    public function getErrors()
+    /**
+     * @param Validator $validator
+     * @return void
+     */
+    public function setValidator(Validator $validator): void
     {
-        return $this->errors;
+        $this->validator = $validator;
+    }
+
+    /**
+     * @param array $errors
+     * @param Validator|null $validator
+     * @param array $config
+     * @return self
+     */
+    public static function new(
+        array $errors,
+        ?Validator $validator = null,
+        array $config = []
+    ): self {
+        $self = new self();
+        $self->setErrors($errors);
+        $self->configure($config);
+
+        if ($validator) {
+            $self->setValidator($validator);
+        }
+
+        return $self;
     }
 }
