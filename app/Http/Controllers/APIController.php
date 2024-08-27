@@ -17,19 +17,17 @@ abstract class APIController extends BaseControllerAlias
 {
     const RESOURCE_NAME = 'Row';
 
-    abstract protected function getStoreRequest();
-
-    abstract protected function getUpdateRequest();
-
     abstract protected function getAuthorizationResource();
-
 
     public function index(Request $request)
     {
         $method = __FUNCTION__;
 
         return $this->execute(function () use ($request, $method) {
+            $this->getService()->setRequest($request);
+
             $rows = $this->getService()->filter($request->all());
+
             return $this->successResponse($rows, Response::HTTP_OK, $this->getResourceName($method) . ' retrieved successfully.');
         });
     }
@@ -42,6 +40,8 @@ abstract class APIController extends BaseControllerAlias
         return $this->execute(function () use ($request, $method) {
             $data = $request->validated();
             $this->authorize('store', $this->getAuthorizationResource());
+
+            $this->getService()->setRequest($request);
             $this->getService()->handle($data, $method);
             $this->getService()->validate($data, $method);
 
@@ -54,12 +54,14 @@ abstract class APIController extends BaseControllerAlias
         });
     }
 
-    protected function _show(AbstractModel $row)
+    protected function _show(Request $request, AbstractModel $row)
     {
         $method = 'show';
 
-        return $this->execute(function () use ($row, $method) {
+        return $this->execute(function () use ($request, $row, $method) {
             $this->authorize('show', $row);
+
+            $this->getService()->setRequest($request);
             $this->getService()->validate(compact('row'), $method);
 
             $row = $this->getService()->show($row);
@@ -79,6 +81,8 @@ abstract class APIController extends BaseControllerAlias
         return $this->execute(function () use ($request, $row, $method) {
             $data = $request->validated();
             $this->authorize('update', $row);
+
+            $this->getService()->setRequest($request);
             $this->getService()->handle($data, $method);
             $this->getService()->validate(compact('data', 'row'), $method);
 
@@ -91,12 +95,14 @@ abstract class APIController extends BaseControllerAlias
         });
     }
 
-    protected function _destroy(AbstractModel $row)
+    protected function _destroy(Request $request, AbstractModel $row)
     {
         $method = 'destroy';
 
-        return $this->execute(function () use ($row, $method) {
+        return $this->execute(function () use ($request, $row, $method) {
             $this->authorize('delete', $row);
+
+            $this->getService()->setRequest($request);
             $this->getService()->validate(compact('row'), $method);
 
             $status = $this->getService()->delete($row);
@@ -116,11 +122,14 @@ abstract class APIController extends BaseControllerAlias
             throw $exception;
         } catch (Throwable $exception) {
             $code = $exception->getCode() ?: Response::HTTP_INTERNAL_SERVER_ERROR;
-            return $this->errorResponse($exception->getMessage(), $code);
+            return $this->errorResponse($exception->getMessage(), $code, [
+                'file' => $exception->getFile(),
+                'line' => $exception->getLine(),
+            ]);
         }
     }
 
-    protected function errorResponse($message, int $code = 500)
+    protected function errorResponse($message, int $code = 500, array $data = [])
     {
         return response()->json([
             'status' => false,
@@ -128,7 +137,8 @@ abstract class APIController extends BaseControllerAlias
                 'message' => [
                     $message
                 ]
-            ]
+            ],
+            'metadata' => $data
         ], $code);
     }
 
@@ -141,8 +151,12 @@ abstract class APIController extends BaseControllerAlias
         ], $code);
     }
 
-    protected function formValidate(Request $request, string $requestValidate)
+    protected function formValidate(Request $request, $requestValidate = null)
     {
+        if (!is_string($requestValidate)) {
+            return;
+        }
+
         $objRequestValidate = app($requestValidate);
         $objRequestValidate->merge($request->all());
 
@@ -174,5 +188,15 @@ abstract class APIController extends BaseControllerAlias
         }
 
         return static::RESOURCE_NAME . 's';
+    }
+
+    protected function getUpdateRequest()
+    {
+        return null;
+    }
+
+    protected function getStoreRequest()
+    {
+        return null;
     }
 }

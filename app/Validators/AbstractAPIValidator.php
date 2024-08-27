@@ -6,15 +6,11 @@ use InvalidArgumentException;
 use Nanicas\LegacyLaravelToolkit\Traits\Configurable;
 use Illuminate\Validation\Factory as ValidatorFactory;
 use Nanicas\LegacyLaravelToolkit\Exceptions\ValidatorException;
+use Nanicas\LegacyLaravelToolkit\Traits\AvailabilityWithRequest;
 
 abstract class AbstractAPIValidator
 {
-    use Configurable;
-
-    /**
-     * @var object
-     */
-    protected object $request;
+    use Configurable, AvailabilityWithRequest;
 
     /**
      * @var array
@@ -34,15 +30,6 @@ abstract class AbstractAPIValidator
     public function __construct(
         protected ValidatorFactory $validator,
     ) {
-    }
-
-    /**
-     * @param object $request
-     * @return void
-     */
-    public function setRequest(object $request): void
-    {
-        $this->request = $request;
     }
 
     /**

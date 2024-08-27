@@ -2,15 +2,13 @@
 
 namespace Nanicas\LegacyLaravelToolkit\Handlers;
 
+use Nanicas\LegacyLaravelToolkit\Traits\AvailabilityWithRequest;
+
 abstract class AbstractHandler
 {
-    protected $data;
-    protected $request;
+    use AvailabilityWithRequest;
 
-    public function setRequest(object $request)
-    {
-        $this->request = $request;
-    }
+    protected $data;
 
     public function setData(mixed &$data)
     {

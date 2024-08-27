@@ -32,8 +32,8 @@ abstract class AbstractAPICrudService extends AbstractService
 
         $validator->setData($data);
 
-        $request = $this->getConfigIndex('request');
-        if ($request) {
+        $request = $this->getRequest();
+        if (is_object($request)) {
             $validator->setRequest($request);
         }
 

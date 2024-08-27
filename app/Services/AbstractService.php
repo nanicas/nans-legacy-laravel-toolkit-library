@@ -7,11 +7,13 @@ use Nanicas\LegacyLaravelToolkit\Validators\AbstractValidator;
 use Nanicas\LegacyLaravelToolkit\Validators\AbstractAPIValidator;
 use Nanicas\LegacyLaravelToolkit\Exceptions\ValidatorException;
 use Nanicas\LegacyLaravelToolkit\Traits\AvailabilityWithDependencie;
+use Nanicas\LegacyLaravelToolkit\Traits\AvailabilityWithRequest;
 use Nanicas\LegacyLaravelToolkit\Traits\Configurable;
 
 abstract class AbstractService
 {
     use AvailabilityWithDependencie,
+        AvailabilityWithRequest,
         Configurable;
 
     protected $handler;
@@ -50,8 +52,8 @@ abstract class AbstractService
             return;
         }
 
-        $request = $this->getConfigIndex('request');
-        if ($request) {
+        $request = $this->getRequest();
+        if (is_object($request)) {
             $handler->setRequest($request);
         }
 
