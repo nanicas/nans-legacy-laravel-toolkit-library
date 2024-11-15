@@ -34,11 +34,13 @@ abstract class APIController extends BaseControllerAlias
 
     public function store(Request $request)
     {
-        $request = $this->formValidate($request, $this->getStoreRequest());
+        $infoValidate = $this->formValidate($request, $this->getStoreRequest());
+        $data = $infoValidate['validated'];
+        $request = $infoValidate['request'];
+
         $method = __FUNCTION__;
 
-        return $this->execute(function () use ($request, $method) {
-            $data = $request->validated();
+        return $this->execute(function () use ($request, $data, $method) {
             $this->authorize('store', $this->getAuthorizationResource());
 
             $this->getService()->setRequest($request);
@@ -75,11 +77,13 @@ abstract class APIController extends BaseControllerAlias
 
     protected function _update(Request $request, AbstractModel $row)
     {
-        $request = $this->formValidate($request, $this->getUpdateRequest());
+        $infoValidate = $this->formValidate($request, $this->getUpdateRequest());
+        $data = $infoValidate['validated'];
+        $request = $infoValidate['request'];
+
         $method = 'update';
 
-        return $this->execute(function () use ($request, $row, $method) {
-            $data = $request->validated();
+        return $this->execute(function () use ($request, $data, $row, $method) {
             $this->authorize('update', $row);
 
             $this->getService()->setRequest($request);
@@ -121,7 +125,7 @@ abstract class APIController extends BaseControllerAlias
         } catch (ValidatorException $exception) {
             throw $exception;
         } catch (Throwable $exception) {
-            $code = $exception->getCode() ?: Response::HTTP_INTERNAL_SERVER_ERROR;
+            $code = $exception->getCode();
             return $this->errorResponse($exception->getMessage(), $code, [
                 'file' => $exception->getFile(),
                 'line' => $exception->getLine(),
@@ -129,9 +133,10 @@ abstract class APIController extends BaseControllerAlias
         }
     }
 
-    protected function errorResponse($message, int $code = 500, array $data = [])
+    protected function errorResponse($message, $code = 500, array $data = [])
     {
         return response()->json([
+            'code' => $code,
             'status' => false,
             'errors' => [
                 'message' => [
@@ -139,7 +144,7 @@ abstract class APIController extends BaseControllerAlias
                 ]
             ],
             'metadata' => $data
-        ], $code);
+        ], Response::HTTP_INTERNAL_SERVER_ERROR);
     }
 
     protected function successResponse($data, $code = 200, $message = null)
@@ -154,7 +159,10 @@ abstract class APIController extends BaseControllerAlias
     protected function formValidate(Request $request, $requestValidate = null)
     {
         if (!is_string($requestValidate)) {
-            return;
+            return [
+                'validated' => $request->all(),
+                'request' => $request
+            ];
         }
 
         $objRequestValidate = app($requestValidate);
@@ -174,7 +182,10 @@ abstract class APIController extends BaseControllerAlias
             );
         }
 
-        return $objRequestValidate;
+        return [
+            'validated' => $validator->validated(),
+            'request' => $objRequestValidate
+        ];
     }
 
     protected function getResourceName(string $method)

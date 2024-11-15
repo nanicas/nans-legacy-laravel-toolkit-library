@@ -38,7 +38,7 @@ trait DynamicActionPort
 
         try {
             $service = $this->getService();
-            $service->configureIndex('request', $request);
+            $service->setRequest($request);
 
             $result = $service->{$action}($id, $data);
             $status = (!empty($result));
@@ -59,7 +59,13 @@ trait DynamicActionPort
         }
 
         return $this->responseDynamicAction(compact(
-                'action', 'status', 'message', 'data', 'result', 'request', 'id'
+            'action',
+            'status',
+            'message',
+            'data',
+            'result',
+            'request',
+            'id'
         ), $action);
     }
 
@@ -67,7 +73,8 @@ trait DynamicActionPort
     {
         extract($data);
 
-        return response()->json(HelperAlias::createDefaultJsonToResponse($status,
+        return response()->json(HelperAlias::createDefaultJsonToResponse(
+            $status,
             [
                 'result' => $result,
                 'message' => $message,
