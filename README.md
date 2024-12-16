@@ -22,4 +22,27 @@ Após o comando, favor verificar no diretório `config` (raiz) se os arquivos fo
 - `nanicas_legacy_laravel_toolkit.php`
 
 ## Observações
-Para evitar problemas com `namespace`, os arquivos contidos em `_to_copy` estarão comentados, lembre-se de descomentá-los quando for fazer o uso.
+
+### Geral
+- Para evitar problemas com `namespace`, os arquivos contidos em `_to_copy` estarão comentados, lembre-se de descomentá-los quando for fazer o uso;
+- Caso desejar renomear os arquivos copiados (que estava em `_to_copy`), lembre-se de alterar também a referência no arquivo `nanicas_legacy_laravel_toolkit.php`
+
+### Adicionar funções globais
+
+No seu arquivo `composer.json`, configure dessa maneira:
+
+```json
+"autoload": {
+    "files": [
+        "app/Functions/global.php"
+    ]
+}
+```
+
+E, no seu arquivo `app/Functions/global.php`, pode ser feito da seguinte maneira:
+
+```php
+<?php
+
+include_once __DIR__ . '/../../vendor/nanicas/legacy-laravel-toolkit-library/_to_copy/Functions/global.php';
+```

@@ -20,8 +20,8 @@ function formatPhone($value)
     $isShort = ($len == 10);
 
     $formattedPhone = '(' . substr($value, 0, 2) . ') ' .
-            substr($value, 2, ($isShort) ? 4 : 5) . '-' .
-            substr($value, ($isShort) ? 6 : 7);
+        substr($value, 2, ($isShort) ? 4 : 5) . '-' .
+        substr($value, ($isShort) ? 6 : 7);
 
     return $formattedPhone;
 }
@@ -156,4 +156,18 @@ function lessThanOrEqualMaxIntValue($value)
 function cleanRoute(string $route)
 {
     return preg_replace("/[^a-zA-Z]/", "", $route);
+}
+
+function isValidDate(string $date, string $format = 'Y-m-d')
+{
+    $d = DateTime::createFromFormat($format, $date);
+
+    return $d && $d->format($format) === $date;
+}
+
+function convertBrazilianDateToAmericanDate(string $date)
+{
+    list($day, $month, $year) = explode('/', $date);
+
+    return implode('-', [$year, $month, $day]);
 }
