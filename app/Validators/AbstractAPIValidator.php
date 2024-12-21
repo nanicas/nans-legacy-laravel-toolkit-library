@@ -19,6 +19,7 @@ abstract class AbstractAPIValidator
 
     /**
      * @var array
+     * @to.do: maybe, remove it
      */
     protected array $errorKeys = [
         'test.0' => 'default',
@@ -29,8 +30,7 @@ abstract class AbstractAPIValidator
      */
     public function __construct(
         protected ValidatorFactory $validator,
-    ) {
-    }
+    ) {}
 
     /**
      * @param array $data
@@ -70,6 +70,7 @@ abstract class AbstractAPIValidator
      * @param int $index
      * @return string
      * @throws InvalidArgumentException
+     * @to.do: maybe, remove it
      */
     protected function getErrorKey(string $function, int $index = 0): string
     {
@@ -79,4 +80,22 @@ abstract class AbstractAPIValidator
 
         return $this->errorKeys[$function . '.' . $index];
     }
+
+    /**
+     * @example: future use
+     * 
+     * protected function add(array $data): Validator
+     * {
+     *     $validator = $this->validator->make($data, []);
+     * 
+     *     if ($data['row']->isCanceled() || $data['row']->isNotPaid()) {
+     *         $validator->getMessageBag()->add(
+     *             'key',
+     *             'message'
+     *         );
+     *     }
+     * 
+     *     return $validator;
+     * }
+     */
 }

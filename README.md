@@ -42,7 +42,5 @@ No seu arquivo `composer.json`, configure dessa maneira:
 E, no seu arquivo `app/Functions/global.php`, pode ser feito da seguinte maneira:
 
 ```php
-<?php
-
-include_once __DIR__ . '/../../vendor/nanicas/legacy-laravel-toolkit-library/_to_copy/Functions/global.php';
+include_once __DIR__ . '/../../vendor/nanicas/legacy-laravel-toolkit-library/app/Functions/global.php';
 ```
