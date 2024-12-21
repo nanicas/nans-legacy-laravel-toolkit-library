@@ -49,12 +49,15 @@ class Controller extends BaseController
 
     public function beforeView(Request $request)
     {
+        $templateConfig = HelperAlias::readTemplateConfig();
+
         View::share('assets', $this->getConfig()['assets'] ?? []);
         View::share('view_prefix', HelperAlias::getViewPrefix());
         View::share('assets_prefix', $this->getRootFolderNameOfAssets());
         View::share('packaged_assets_prefix', $this->getRootFolderNameOfAssetsPackaged());
         View::share('screen', $this->getScreen());
         View::share('full_screen', $this->getFullScreen());
+        View::share('template_config', $templateConfig);
         View::share('section_screen', $this->getSectionScreen());
         View::share('app_flash_data', $request->session()->get('app_flash_data', null));
     }

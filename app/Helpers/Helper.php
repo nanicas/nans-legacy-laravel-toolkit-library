@@ -91,16 +91,14 @@ class Helper
         $view_prefix = self::getViewPrefix();
         $packaged_assets_prefix = self::getRootFolderNameOfAssets();
 
-        $view = self::view($viewName, compact('view_prefix', 'packaged_assets_prefix'), $packaged)->render();
-
         if (!$isAjax) {
-            return response($view);
+            return self::view($viewName, compact('view_prefix', 'packaged_assets_prefix'), $packaged);
         }
 
         return response()->json(self::createDefaultJsonToResponse(false, [
-            'message' => $view,
+            'message' => 'Operação não permitada',
             'wrapped' => false
-        ]));
+        ]))->setStatusCode(403);
     }
 
     public static function view(

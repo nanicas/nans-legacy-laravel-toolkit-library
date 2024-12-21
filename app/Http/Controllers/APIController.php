@@ -17,6 +17,8 @@ abstract class APIController extends BaseControllerAlias
 {
     const RESOURCE_NAME = 'Row';
 
+    protected bool $trace = true;
+
     abstract protected function getAuthorizationResource();
 
     public function index(Request $request)
@@ -121,27 +123,39 @@ abstract class APIController extends BaseControllerAlias
     protected function execute(Closure $closure)
     {
         try {
-            return $closure();
+            $response = $closure();
         } catch (ValidatorException $exception) {
-            throw $exception;
-        } catch (Throwable $exception) {
+            $error_type = get_class($exception);
             $code = $exception->getCode();
-            return $this->errorResponse($exception->getMessage(), $code, [
-                'file' => $exception->getFile(),
-                'line' => $exception->getLine(),
-            ]);
+            $error = $exception->getErrors();
+            $trace = $this->trace ? $exception->getTraceAsString() : null;
+            $file = $exception->getFile();
+            $line = $exception->getLine();
+
+            $response = $this->errorResponse($error, $code, compact('file', 'line', 'trace', 'error_type'));
+        } catch (Throwable $th) {
+            $error_type = get_class($th);
+            $error = $th->getMessage();
+            $code = $th->getCode();
+            $trace = $this->trace ? $th->getTraceAsString() : null;
+            $file = $th->getFile();
+            $line = $th->getLine();
+
+            $response = $this->errorResponse($error, $code, compact('file', 'line', 'trace', 'error_type'));
+        } finally {
+            return $response;
         }
     }
 
     protected function errorResponse($message, $code = 500, array $data = [])
     {
+        $messageContent = is_array($message) ? $message : [$message];
+
         return response()->json([
             'code' => $code,
             'status' => false,
             'errors' => [
-                'message' => [
-                    $message
-                ]
+                'message' => $messageContent
             ],
             'metadata' => $data
         ], Response::HTTP_INTERNAL_SERVER_ERROR);

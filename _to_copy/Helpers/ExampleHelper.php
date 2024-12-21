@@ -1,5 +1,4 @@
 <?php
-/**
 
 namespace App\Helpers;
 
@@ -11,21 +10,19 @@ class ExampleHelper extends HelperVendor
     {
         return true;
     }
-    
+
     public static function isTest()
     {
         return true;
     }
-    
+
     public static function isMaster()
     {
         return true;
     }
-    
+
     public static function isWorker()
     {
         return true;
     }
 }
-
-*/
