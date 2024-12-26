@@ -12,6 +12,12 @@ return [
     ],
     'frontend' => [
         'header' => [
+            'navbar' => [
+                'user' => [
+                    'has_profile' => true,
+                    'profile_route' => 'user.show',
+                ]
+            ],
             'search' => [
                 'has' => true,
                 'placeholder' => 'Buscar...',

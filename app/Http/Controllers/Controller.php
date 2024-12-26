@@ -171,6 +171,19 @@ class Controller extends BaseController
         $this->config['assets']['css'][] = $root . 'resources/pages/' . $path . '/create.css';
     }
 
+    public function addEditAssets()
+    {
+        if (method_exists($this, 'addFormAssets')) {
+            $this->addFormAssets();
+        }
+
+        $path = $this->definePathAssets();
+        $root = $this->getRootFolderNameOfAssets();
+
+        $this->config['assets']['js'][] = $root . 'resources/pages/' . $path . '/edit.js';
+        $this->config['assets']['css'][] = $root . 'resources/pages/' . $path . '/edit.css';
+    }
+
     public function addListAssets()
     {
         $path = $this->definePathAssets();

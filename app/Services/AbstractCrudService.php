@@ -21,10 +21,9 @@ abstract class AbstractCrudService extends AbstractService
      * prohibited word in PHP when using the trait.
      * @return array
      */
-    public function getDataToList()
+    public function getDataToList(array $data)
     {
-        $data = [];
-        $this->handle($data, 'listx');
+        $this->handle($data, 'list');
 
         $rows = $this->getRepository()->getAllQuery($data);
 
@@ -34,6 +33,27 @@ abstract class AbstractCrudService extends AbstractService
     public function getDataToCreate()
     {
         return $this->getDataToForm(__FUNCTION__);
+    }
+
+    public function getDataToEdit(int $id)
+    {
+        $loggedUser = HelperAlias::getUser();
+
+        $data = compact('id');
+        $data['row'] = $this->getRepository()->getById($id);
+        $data['logged_user'] = $loggedUser;
+
+        parent::handle($data, 'edit');
+        parent::validate($data, 'edit');
+
+        $dataForm = $this->getDataToForm(__FUNCTION__);
+        $dataForm = array_merge($data, $dataForm);
+
+        if (method_exists($this, 'posteriorComplementDataOnEdit')) {
+            $this->posteriorComplementDataOnEdit($dataForm);
+        }
+
+        return $dataForm;
     }
 
     public function getDataToForm()

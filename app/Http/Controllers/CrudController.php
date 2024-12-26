@@ -4,6 +4,7 @@ namespace Nanicas\LegacyLaravelToolkit\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\Route;
 use Throwable;
 use DataTables;
 use Nanicas\LegacyLaravelToolkit\Exceptions\ValidatorException;
@@ -20,6 +21,7 @@ abstract class CrudController extends DashboardControllerAlias
     const LIST_VIEW = 'list';
     const SHOW_VIEW = 'show';
     const CREATE_VIEW = 'create';
+    const EDIT_VIEW = 'edit';
 
     protected $view;
     protected $request;
@@ -109,7 +111,7 @@ abstract class CrudController extends DashboardControllerAlias
             return $this->notAllowedResponse($request);
         }
 
-        $data = $_POST;
+        $data = $request->all();
         $status = false;
         $id = null;
         $method = __FUNCTION__;
@@ -140,8 +142,8 @@ abstract class CrudController extends DashboardControllerAlias
             $message = HelperAlias::loadMessage($ex->getMessage() . ' [' . $ex->getFile() . ':' . $ex->getLine() . ']', $status);
         }
 
-        $existsDifferentResponseOnEnd = ($this->existsConfigIndex('response_on_end'));
-        $canResponseOnEnd = (!$existsDifferentResponseOnEnd || $this->isValidConfig('response_on_end'));
+        $existsDifferentResponseOnEnd = ($this->existsConfigIndex('response_on_end_store'));
+        $canResponseOnEnd = (!$existsDifferentResponseOnEnd || $this->isValidConfig('response_on_end_store'));
 
         $redirUrl = (method_exists($this, 'getRedirUrl')) ? $this->getRedirUrl($status, $method, [], $data) : (($status) ? route($this->getFullScreen() . '.index', ['state' => 'success_store']) : '');
 
@@ -172,7 +174,7 @@ abstract class CrudController extends DashboardControllerAlias
             return $this->notAllowedResponse($request);
         }
 
-        $data = $_POST;
+        $data = $request->all();
         $status = false;
         $resource = null;
 
@@ -194,14 +196,15 @@ abstract class CrudController extends DashboardControllerAlias
             $message = HelperAlias::loadMessage($ex->getMessage() . ' [' . $ex->getFile() . ':' . $ex->getLine() . ']', $status);
         }
 
-        $existsDifferentResponseOnEnd = ($this->existsConfigIndex('response_on_end'));
-        $canResponseOnEnd = (!$existsDifferentResponseOnEnd || $this->isValidConfig('response_on_end'));
+        $existsDifferentResponseOnEnd = ($this->existsConfigIndex('response_on_end_update'));
+        $canResponseOnEnd = (!$existsDifferentResponseOnEnd || $this->isValidConfig('response_on_end_update'));
 
+        $route = $this->getFullScreen() . '.index';
         $response = HelperAlias::createDefaultJsonToResponse($status, [
             'status' => $status,
             'resource' => $resource,
             'message' => $message,
-            'url_redir' => ($status) ? route($this->getFullScreen() . '.index', ['state' => 'success_update']) : ''
+            'url_redir' => ($status && Route::has($route)) ? route($route, ['state' => 'success_update']) : ''
         ]);
 
         if ($canResponseOnEnd) {
@@ -263,7 +266,6 @@ abstract class CrudController extends DashboardControllerAlias
         $status = false;
         $message = '';
         $query_params = $request->query();
-
         $executorData = function () {
             return $this->getService()->getIndexData();
         };
@@ -313,6 +315,34 @@ abstract class CrudController extends DashboardControllerAlias
         return self::view(compact('data', 'message', 'status'));
     }
 
+    public function edit(Request $request, int $id)
+    {
+        $this->request = $request;
+        $this->getService()->setRequest($request);
+
+        if (!$this->isAllowed()) {
+            return $this->notAllowedResponse($request);
+        }
+
+        $data = [];
+        $status = false;
+
+        $this->addEditAssets();
+        $this->setView(self::EDIT_VIEW);
+
+        try {
+            $data = $this->getService()->getDataToEdit($id);
+            $status = true;
+            $message = HelperAlias::loadMessage('Dados encontrados com sucesso, segue abaixo a relação das informações.', $status);
+        } catch (ValidatorException | CustomValidatorException $ex) {
+            $message = $ex->getMessage();
+        } catch (Throwable $ex) {
+            $message = HelperAlias::loadMessage($ex->getMessage() . ' [' . $ex->getFile() . ':' . $ex->getLine() . ']', $status);
+        }
+
+        return self::view(compact('data', 'message', 'status'));
+    }
+
     public function configlist()
     {
         return [
@@ -331,7 +361,9 @@ abstract class CrudController extends DashboardControllerAlias
 
         parent::beforeView($request);
 
-        $data = $this->getService()->getDataToList();
+        $query = $request->query();
+        $data = $this->getService()->getDataToList($query);
+
         $options = $data['options'] ?? [];
 
         return $this->createListTable($data['rows'], $options);

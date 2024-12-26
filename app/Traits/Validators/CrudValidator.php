@@ -139,4 +139,6 @@ trait CrudValidator
             $this->addError('row_not_found');
         }
     }
+
+    public function form() {}
 }
