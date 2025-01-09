@@ -171,3 +171,8 @@ function convertBrazilianDateToAmericanDate(string $date)
 
     return implode('-', [$year, $month, $day]);
 }
+
+function removeSeconds(string $time)
+{
+    return substr($time, 0, -3);
+}

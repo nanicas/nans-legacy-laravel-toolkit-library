@@ -5,6 +5,7 @@ namespace Nanicas\LegacyLaravelToolkit\Helpers;
 use Psr\Http\Message\ResponseInterface;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use Datetime;
 
 class Helper
 {
@@ -144,5 +145,14 @@ class Helper
     public static function cleanRoute(string $route)
     {
         return preg_replace("/[^a-zA-Z]/", "", $route);
+    }
+
+    public static function formatDatetime(Datetime $datetime, $format = null)
+    {
+        if (is_null($format)) {
+            $format = config('nanicas_legacy_laravel_toolkit.datetime_format');
+        }
+
+        return $datetime->format($format);
     }
 }

@@ -2,6 +2,10 @@
 
 namespace Nanicas\LegacyLaravelToolkit\Traits;
 
+use Nanicas\LegacyLaravelToolkit\Helpers\Helper as InternalHelper;
+
+class_alias(InternalHelper::readTemplateConfig()['helpers']['global'], uniqid() . __NAMESPACE__ . '\HelperAlias');
+
 trait AttributesResourceModel
 {
     public static function getPrimaryKey()
@@ -31,12 +35,8 @@ trait AttributesResourceModel
 
     public function getFromDatetimeAttribute(string $attr, $format = null)
     {
-        if (is_null($format)) {
-            $format = config('nanicas_legacy_laravel_toolkit.datetime_format');
-        }
-
         $datetime = $this->getAttribute($attr);
 
-        return ($datetime) ? $datetime->format($format) : null;
+        return ($datetime) ? HelperAlias::formatDatetime($datetime, $format) : null;
     }
 }
