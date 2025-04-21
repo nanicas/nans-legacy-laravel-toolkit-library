@@ -61,12 +61,13 @@ class Helper
 
     public static function getUser()
     {
-        return Auth::user();
+        $guard = self::getAuthenticatedGuard();
+        return auth()->guard($guard)->user();
     }
 
     public static function getUserName(bool $full = true)
     {
-        $name = Auth::user()->name;
+        $name = self::getUser()->name;
         if ($full) {
             return $name;
         }
@@ -154,5 +155,27 @@ class Helper
         }
 
         return $datetime->format($format);
+    }
+
+    public static function isAnyGuardAuthenticated(): bool
+    {
+        foreach (array_keys(config('auth.guards')) as $guard) {
+            if (Auth::guard($guard)->check()) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public static function getAuthenticatedGuard(): ?string
+    {
+        foreach (array_keys(config('auth.guards')) as $guard) {
+            if (Auth::guard($guard)->check()) {
+                return $guard;
+            }
+        }
+
+        return null;
     }
 }
