@@ -4,7 +4,12 @@ namespace Nanicas\LegacyLaravelToolkit\Traits;
 
 use Nanicas\LegacyLaravelToolkit\Helpers\Helper as InternalHelper;
 
-class_alias(InternalHelper::readTemplateConfig()['helpers']['global'], uniqid() . __NAMESPACE__ . '\HelperAlias');
+/**
+ * @note: ARM = Attributes Resource Model
+ * Was named as ARMxxHelperAlias to avoid conflicts with other classes;
+ * At other points, uniqid is being used, but for some reason, the Class not found error is displayed here.
+ */
+class_alias(InternalHelper::readTemplateConfig()['helpers']['global'], __NAMESPACE__ . '\ARMxxHelperAlias');
 
 trait AttributesResourceModel
 {
@@ -37,6 +42,6 @@ trait AttributesResourceModel
     {
         $datetime = $this->getAttribute($attr);
 
-        return ($datetime) ? HelperAlias::formatDatetime($datetime, $format) : null;
+        return ($datetime) ? ARMxxHelperAlias::formatDatetime($datetime, $format) : null;
     }
 }
