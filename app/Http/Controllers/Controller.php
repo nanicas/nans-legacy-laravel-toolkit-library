@@ -27,7 +27,17 @@ class Controller extends BaseController
     use Configurable,
         AvailabilityWithService;
 
+    protected object $request;
+
     protected bool $isAPI = false;
+
+    protected bool $packaged = false;
+
+    protected bool $safe = true;
+
+    protected string $view;
+
+    protected bool $allowed = true;
 
     public function __construct()
     {
@@ -38,11 +48,7 @@ class Controller extends BaseController
             ]
         ]);
 
-        if (!$this->existsConfigIndex('packaged')) {
-            $this->configureIndex('packaged', false);
-        }
-
-        AppStater::setItem('packaged', $this->getConfigIndex('packaged'));
+        AppStater::setItem('packaged', $this->packaged);
     }
 
     public function getIsAPI()
@@ -50,19 +56,21 @@ class Controller extends BaseController
         return $this->isAPI;
     }
 
-    public function beforeView(Request $request)
+    public function beforeView(Request $request, bool $sharePrefixes = true)
     {
         $templateConfig = CxxHelperAlias::readTemplateConfig();
 
+        View::share('state', $request->query('state'));
         View::share('assets', $this->getConfig()['assets'] ?? []);
-        View::share('view_prefix', CxxHelperAlias::getViewPrefix());
-        View::share('assets_prefix', $this->getRootFolderNameOfAssets());
-        View::share('packaged_assets_prefix', $this->getRootFolderNameOfAssetsPackaged());
         View::share('screen', $this->getScreen());
         View::share('full_screen', $this->getFullScreen());
         View::share('template_config', $templateConfig);
         View::share('section_screen', $this->getSectionScreen());
         View::share('app_flash_data', $request->session()->get('app_flash_data', null));
+
+        if ($sharePrefixes) {
+            CxxHelperAlias::sharePrefixesBeforeView();
+        }
     }
 
     public function getFullScreen(): string
@@ -79,13 +87,13 @@ class Controller extends BaseController
 
     public function getScreen(): string
     {
-        list($main) = explode('.', \Request::route()->getName());
+        list($main) = explode('.', request()->route()->getName());
         return $main;
     }
 
     public function getSectionScreen(): string
     {
-        $list = explode('.', \Request::route()->getName());
+        $list = explode('.', request()->route()->getName());
         $count = count($list);
 
         if ($count == 1) {
@@ -123,20 +131,27 @@ class Controller extends BaseController
 
     public function isPackagedView()
     {
-        return ($this->getConfigIndex('packaged') === true);
+        return CxxHelperAlias::isPackagedView();
     }
 
     public function getRootFolderNameOfAssetsPackaged()
     {
-        return CxxHelperAlias::getRootFolderNameOfAssets();
+        return CxxHelperAlias::getRootFolderNameOfAssetsPackaged();
+    }
+
+    public  function getViewPrefixPackaged()
+    {
+        return CxxHelperAlias::getViewPrefixPackaged();
+    }
+
+    public  function getViewPrefix()
+    {
+        return CxxHelperAlias::getViewPrefix();
     }
 
     public function getRootFolderNameOfAssets()
     {
-        $root = CxxHelperAlias::getRootFolderNameOfAssets();
-        $packaged = $this->isPackagedView();
-
-        return ($packaged) ? $root . '/' : '';
+        return CxxHelperAlias::getRootFolderNameOfAssets();
     }
 
     public function addIndexAssets()
@@ -199,5 +214,35 @@ class Controller extends BaseController
     protected function setIsAPI(bool $value)
     {
         $this->isAPI = $value;
+    }
+
+    protected function setView(string $view)
+    {
+        $this->view = $view;
+    }
+
+    protected function getView()
+    {
+        return $this->view;
+    }
+
+    protected function allowed(bool $value)
+    {
+        $this->allowed = $value;
+    }
+
+    protected function isAllowed(): bool
+    {
+        return $this->allowed;
+    }
+
+    protected function setSafe(bool $value)
+    {
+        $this->safe = $value;
+    }
+
+    protected function isSafe()
+    {
+        return (!empty($this->safe));
     }
 }

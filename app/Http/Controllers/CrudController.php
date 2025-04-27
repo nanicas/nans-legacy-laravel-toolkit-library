@@ -3,7 +3,6 @@
 namespace Nanicas\LegacyLaravelToolkit\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Route;
 use Throwable;
 use DataTables;
@@ -29,29 +28,16 @@ abstract class CrudController extends DashboardControllerAlias
     const CREATE_VIEW = 'create';
     const EDIT_VIEW = 'edit';
 
-    protected $view;
-    protected $request;
-    protected bool $indexIsList = true;
-    protected bool $safe = true;
+    public function indexIsList()
+    {
+        return ($this->getConfigIndex('index_is_list') == true);
+    }
 
     public function __construct()
     {
         parent::__construct();
-    }
 
-    public function setView(string $view)
-    {
-        $this->view = $view;
-    }
-
-    public function getView()
-    {
-        return $this->view;
-    }
-
-    public function indexIsList()
-    {
-        return $this->indexIsList;
+        $this->configureIndex('index_is_list', true);
     }
 
     public function print(array $response)
@@ -85,13 +71,6 @@ abstract class CrudController extends DashboardControllerAlias
         $packaged = $this->isPackagedView();
 
         return CCxxHelperAlias::view("pages.$screen.$view", $data, $packaged)->render();
-    }
-
-    public function beforeView(Request $request)
-    {
-        View::share('state', $request->query('state'));
-
-        parent::beforeView($request);
     }
 
     protected function view(array $data = [])
@@ -434,15 +413,5 @@ abstract class CrudController extends DashboardControllerAlias
             CCxxHelperAlias::createDefaultJsonToResponse($status, compact('rows', 'message')),
             $code
         );
-    }
-
-    protected function setSafe(bool $value)
-    {
-        $this->safe = $value;
-    }
-
-    protected function isSafe()
-    {
-        return (!empty($this->safe));
     }
 }

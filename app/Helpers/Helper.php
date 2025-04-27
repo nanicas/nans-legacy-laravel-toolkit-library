@@ -2,23 +2,48 @@
 
 namespace Nanicas\LegacyLaravelToolkit\Helpers;
 
-use Psr\Http\Message\ResponseInterface;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Http\Request;
 use Datetime;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\View;
+use Psr\Http\Message\ResponseInterface;
+use Nanicas\LegacyLaravelToolkit\Staters\AppStater;
 
 class Helper
 {
     const VIEW_PREFIX = 'legacy_laravel_toolkit_view_library::';
 
-    public static function getViewPrefix()
+    public static function sharePrefixesBeforeView()
+    {
+        View::share('view_prefix', self::getViewPrefix());
+        View::share('packaged_view_prefix', self::getViewPrefixPackaged());
+        View::share('assets_prefix', self::getRootFolderNameOfAssets());
+        View::share('packaged_assets_prefix', self::getRootFolderNameOfAssetsPackaged());
+    }
+
+    public static function getViewPrefixPackaged()
     {
         return self::VIEW_PREFIX;
     }
 
-    public static function getRootFolderNameOfAssets()
+    public static function getViewPrefix()
+    {
+        return '';
+    }
+
+    public static function isPackagedView()
+    {
+        return (AppStater::getItem('packaged') === true);
+    }
+
+    public static function getRootFolderNameOfAssetsPackaged()
     {
         return 'vendor/legacy_laravel_toolkit_view_library';
+    }
+
+    public static function getRootFolderNameOfAssets()
+    {
+        return '';
     }
 
     public static function getAppId()
@@ -105,9 +130,17 @@ class Helper
     public static function view(
         string $path,
         array $data = [],
-        bool $packaged = false
+        bool $packaged = false,
+        bool $sharePrefixes = true
     ) {
-        $path = (!$packaged) ? $path : self::getViewPrefix() . $path;
+
+        $prefix = self::getViewPrefix();
+        $path = (!$packaged) ? $path : $prefix . $path;
+
+        if ($sharePrefixes) {
+            self::sharePrefixesBeforeView();
+        }
+
         return view($path, $data);
     }
 

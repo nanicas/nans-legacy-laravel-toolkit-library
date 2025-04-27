@@ -18,8 +18,6 @@ if (!empty($config['controllers'])) {
 
 abstract class DashboardController extends BaseControllerAlias
 {
-    protected bool $allowed = true;
-
     public function __construct()
     {
         parent::__construct();
@@ -30,22 +28,12 @@ abstract class DashboardController extends BaseControllerAlias
         $this->config['assets']['css'][] = $root . '/css/layouts/dashboard.css';
     }
 
-    protected function allowed(bool $value)
-    {
-        $this->allowed = $value;
-    }
-
-    protected function isAllowed(): bool
-    {
-        return $this->allowed;
-    }
-
     protected function notAllowedResponse(Request $request)
     {
         return DCxxHelperAlias::notAllowedResponse($request);
     }
 
-    public function beforeView(Request $request)
+    public function beforeView(Request $request, bool $sharePrefixes = true)
     {
         View::share('is_admin', DCxxHelperAlias::isAdmin());
         View::share('is_master', DCxxHelperAlias::isMaster());
@@ -53,6 +41,6 @@ abstract class DashboardController extends BaseControllerAlias
         View::share('is_worker', DCxxHelperAlias::isWorker());
         View::share('dashboard_flash_data', $request->session()->get('dashboard_flash_data', null));
 
-        parent::beforeView($request);
+        parent::beforeView($request, $sharePrefixes);
     }
 }
