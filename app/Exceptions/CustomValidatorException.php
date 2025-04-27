@@ -4,7 +4,7 @@ namespace Nanicas\LegacyLaravelToolkit\Exceptions;
 
 use Nanicas\LegacyLaravelToolkit\Helpers\Helper as InternalHelper;
 
-class_alias(InternalHelper::readTemplateConfig()['helpers']['global'], __NAMESPACE__ . '\HelperAlias');
+class_alias(InternalHelper::readTemplateConfig()['helpers']['global'], __NAMESPACE__ . '\CVExxHelperAlias');
 
 class CustomValidatorException extends \Exception
 {
@@ -24,14 +24,17 @@ class CustomValidatorException extends \Exception
      * @param \Throwable $previous
      */
     public function __construct(
-        string $message = "", int $code = 0, \Throwable $previous = null
-    )
-    {
-        $packaged = true;
+        string $message = "",
+        int $code = 0,
+        \Throwable $previous = null
+    ) {
+        $packaged = false;
 
         if (!$this->translated) {
-            $message = HelperAlias::view(
-                    'components.validator-messages', ['messages' => [$message]], $packaged
+            $message = CVExxHelperAlias::view(
+                'components.validator-messages',
+                ['messages' => [$message]],
+                $packaged
             )->render();
         }
 

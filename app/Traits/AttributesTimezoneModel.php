@@ -4,27 +4,27 @@ namespace Nanicas\LegacyLaravelToolkit\Traits;
 
 use Nanicas\LegacyLaravelToolkit\Helpers\Helper as InternalHelper;
 
-class_alias(InternalHelper::readTemplateConfig()['helpers']['global'], uniqid() . __NAMESPACE__ . '\HelperAlias');
+class_alias(InternalHelper::readTemplateConfig()['helpers']['global'], uniqid() . __NAMESPACE__ . '\ATMTxxHelperAlias');
 
 trait AttributesTimezoneModel
 {
     public function getCreatedAtTimezonedAttribute()
     {
-        $timezone = HelperAlias::getUserTimezone();
+        $timezone = ATMTxxHelperAlias::getUserTimezone();
 
         return $this->created_at->copy()->setTimezone($timezone);
     }
 
     public function getUpdatedAtTimezonedAttribute()
     {
-        $timezone = HelperAlias::getUserTimezone();
+        $timezone = ATMTxxHelperAlias::getUserTimezone();
 
         return $this->updated_at->copy()->setTimezone($timezone);
     }
 
     public function getTimezonedAttribute(string $attribute)
     {
-        $timezone = HelperAlias::getUserTimezone();
+        $timezone = ATMTxxHelperAlias::getUserTimezone();
 
         return $this->$attribute->copy()->setTimezone($timezone);
     }

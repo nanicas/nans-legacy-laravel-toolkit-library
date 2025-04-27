@@ -90,10 +90,9 @@ class Helper
         $isAjax = ($request->ajax() || $request->wantsJson());
         $viewName = ($isAjax) ? 'pages.allowance.not_allowed_content' : 'pages.allowance.not_allowed';
 
-        $view_prefix = self::getViewPrefix();
-        $packaged_assets_prefix = self::getRootFolderNameOfAssets();
-
         if (!$isAjax) {
+            $view_prefix = self::getViewPrefix();
+            $packaged_assets_prefix = self::getRootFolderNameOfAssets();
             return self::view($viewName, compact('view_prefix', 'packaged_assets_prefix'), $packaged);
         }
 

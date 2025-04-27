@@ -7,8 +7,9 @@ use Illuminate\Http\Request;
 use Nanicas\LegacyLaravelToolkit\Helpers\Helper as InternalHelper;
 
 $config = InternalHelper::readTemplateConfig();
+
 if (!empty($config['helpers'])) {
-    class_alias($config['helpers']['global'], uniqid() . __NAMESPACE__ . '\HelperAlias');
+    class_alias($config['helpers']['global'],  __NAMESPACE__ . '\DCxxHelperAlias');
 }
 
 if (!empty($config['controllers'])) {
@@ -41,15 +42,15 @@ abstract class DashboardController extends BaseControllerAlias
 
     protected function notAllowedResponse(Request $request)
     {
-        return HelperAlias::notAllowedResponse($request);
+        return DCxxHelperAlias::notAllowedResponse($request);
     }
 
     public function beforeView(Request $request)
     {
-        View::share('is_admin', HelperAlias::isAdmin());
-        View::share('is_master', HelperAlias::isMaster());
-        View::share('is_test', HelperAlias::isTest());
-        View::share('is_worker', HelperAlias::isWorker());
+        View::share('is_admin', DCxxHelperAlias::isAdmin());
+        View::share('is_master', DCxxHelperAlias::isMaster());
+        View::share('is_test', DCxxHelperAlias::isTest());
+        View::share('is_worker', DCxxHelperAlias::isWorker());
         View::share('dashboard_flash_data', $request->session()->get('dashboard_flash_data', null));
 
         parent::beforeView($request);

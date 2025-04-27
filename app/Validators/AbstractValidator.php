@@ -4,7 +4,7 @@ namespace Nanicas\LegacyLaravelToolkit\Validators;
 
 use Nanicas\LegacyLaravelToolkit\Helpers\Helper as InternalHelper;
 
-class_alias(InternalHelper::readTemplateConfig()['helpers']['global'],  __NAMESPACE__ . '\HelperAlias');
+class_alias(InternalHelper::readTemplateConfig()['helpers']['global'],  __NAMESPACE__ . '\AVxxHelperAlias');
 
 abstract class AbstractValidator
 {
@@ -28,7 +28,7 @@ abstract class AbstractValidator
         'authenticated_users_cannot_perform_this_operation' => 'Usuarios autenticados não podem realizar essa operação',
         'not_allowed_on_same_logged_scope' => 'Não permitido no mesmo escopo logado'
     ];
-    
+
     public function setRequest(object $request)
     {
         $this->request = $request;
@@ -43,7 +43,7 @@ abstract class AbstractValidator
     {
         $this->withHTML = $value;
     }
-    
+
     public function isWithHTML()
     {
         return $this->withHTML;
@@ -99,12 +99,11 @@ abstract class AbstractValidator
     public function translate()
     {
         if (!$this->isWithHTML()) {
-            //return implode($this->getTextSeparator(), $this->errors);
             return json_encode($this->errors);
         }
-        
-        $packaged = true;//(bool) AppStater::getItem('packaged');
 
-        return HelperAlias::view('components.validator-messages', ['messages' => $this->errors], $packaged)->render();
+        $packaged = false;
+
+        return AVxxHelperAlias::view('components.validator-messages', ['messages' => $this->errors], $packaged)->render();
     }
 }

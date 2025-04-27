@@ -7,7 +7,7 @@ use Nanicas\LegacyLaravelToolkit\Helpers\Helper as InternalHelper;
 
 $config = InternalHelper::readTemplateConfig();
 if (!empty($config['helpers'])) {
-    class_alias($config['helpers']['global'], uniqid() . __NAMESPACE__ . '\HelperAlias');
+    class_alias($config['helpers']['global'],  __NAMESPACE__ . '\SCxxHelperAlias');
 }
 
 if (!empty($config['controllers'])) {
@@ -43,6 +43,6 @@ abstract class SiteController extends BaseControllerAlias
         $this->beforeView();
         $packaged = $this->isPackagedView();
 
-        return HelperAlias::view($view, $data, $packaged);
+        return SCxxHelperAlias::view($view, $data, $packaged);
     }
 }

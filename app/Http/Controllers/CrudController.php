@@ -14,7 +14,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 $config = InternalHelper::readTemplateConfig();
 if (!empty($config['helpers'])) {
-    class_alias($config['helpers']['global'], uniqid() . __NAMESPACE__ . '\HelperAlias');
+    class_alias($config['helpers']['global'],  __NAMESPACE__ . '\CCxxHelperAlias');
 }
 
 if (!empty($config['controllers'])) {
@@ -84,7 +84,7 @@ abstract class CrudController extends DashboardControllerAlias
     {
         $packaged = $this->isPackagedView();
 
-        return HelperAlias::view("pages.$screen.$view", $data, $packaged)->render();
+        return CCxxHelperAlias::view("pages.$screen.$view", $data, $packaged)->render();
     }
 
     public function beforeView(Request $request)
@@ -141,11 +141,11 @@ abstract class CrudController extends DashboardControllerAlias
             } else {
                 $message = 'As informações foram salvas com sucesso!';
             }
-            $message = HelperAlias::loadMessage($message, $status);
+            $message = CCxxHelperAlias::loadMessage($message, $status);
         } catch (ValidatorException | CustomValidatorException $ex) {
             $message = $ex->getMessage();
         } catch (Throwable $ex) {
-            $message = HelperAlias::loadMessage($ex->getMessage() . ' [' . $ex->getFile() . ':' . $ex->getLine() . ']', $status);
+            $message = CCxxHelperAlias::loadMessage($ex->getMessage() . ' [' . $ex->getFile() . ':' . $ex->getLine() . ']', $status);
         }
 
         $existsDifferentResponseOnEnd = ($this->existsConfigIndex('response_on_end_store'));
@@ -153,7 +153,7 @@ abstract class CrudController extends DashboardControllerAlias
 
         $redirUrl = (method_exists($this, 'getRedirUrl')) ? $this->getRedirUrl($status, $method, [], $data) : (($status) ? route($this->getFullScreen() . '.index', ['state' => 'success_store']) : '');
 
-        $response = HelperAlias::createDefaultJsonToResponse(
+        $response = CCxxHelperAlias::createDefaultJsonToResponse(
             $status,
             [
                 'status' => $status,
@@ -195,18 +195,18 @@ abstract class CrudController extends DashboardControllerAlias
                 $message = 'As informações foram salvas com sucesso!';
             }
 
-            $message = HelperAlias::loadMessage($message, $status);
+            $message = CCxxHelperAlias::loadMessage($message, $status);
         } catch (ValidatorException | CustomValidatorException $ex) {
             $message = $ex->getMessage();
         } catch (Throwable $ex) {
-            $message = HelperAlias::loadMessage($ex->getMessage() . ' [' . $ex->getFile() . ':' . $ex->getLine() . ']', $status);
+            $message = CCxxHelperAlias::loadMessage($ex->getMessage() . ' [' . $ex->getFile() . ':' . $ex->getLine() . ']', $status);
         }
 
         $existsDifferentResponseOnEnd = ($this->existsConfigIndex('response_on_end_update'));
         $canResponseOnEnd = (!$existsDifferentResponseOnEnd || $this->isValidConfig('response_on_end_update'));
 
         $route = $this->getFullScreen() . '.index';
-        $response = HelperAlias::createDefaultJsonToResponse($status, [
+        $response = CCxxHelperAlias::createDefaultJsonToResponse($status, [
             'status' => $status,
             'resource' => $resource,
             'message' => $message,
@@ -241,14 +241,14 @@ abstract class CrudController extends DashboardControllerAlias
                 $message = 'Os dados foram excluídos com sucesso!';
             }
 
-            $message = HelperAlias::loadMessage($message, $status);
+            $message = CCxxHelperAlias::loadMessage($message, $status);
         } catch (ValidatorException | CustomValidatorException $ex) {
             $message = $ex->getMessage();
         } catch (Throwable $ex) {
-            $message = HelperAlias::loadMessage($ex->getMessage() . ' [' . $ex->getFile() . ':' . $ex->getLine() . ']', $status);
+            $message = CCxxHelperAlias::loadMessage($ex->getMessage() . ' [' . $ex->getFile() . ':' . $ex->getLine() . ']', $status);
         }
 
-        echo json_encode(HelperAlias::createDefaultJsonToResponse($status, [
+        echo json_encode(CCxxHelperAlias::createDefaultJsonToResponse($status, [
             'id' => $id,
             'status' => $status,
             'message' => $message,
@@ -283,7 +283,7 @@ abstract class CrudController extends DashboardControllerAlias
             } catch (ValidatorException | CustomValidatorException $ex) {
                 $message = $ex->getMessage();
             } catch (Throwable $ex) {
-                $message = HelperAlias::loadMessage($ex->getMessage() . ' [' . $ex->getFile() . ':' . $ex->getLine() . ']', $status);
+                $message = CCxxHelperAlias::loadMessage($ex->getMessage() . ' [' . $ex->getFile() . ':' . $ex->getLine() . ']', $status);
             }
         } else {
             $data = $executorData();
@@ -311,11 +311,11 @@ abstract class CrudController extends DashboardControllerAlias
         try {
             $data = $this->getService()->getDataToShow($id);
             $status = true;
-            $message = HelperAlias::loadMessage('Dados encontrados com sucesso, segue abaixo a relação das informações.', $status);
+            $message = CCxxHelperAlias::loadMessage('Dados encontrados com sucesso, segue abaixo a relação das informações.', $status);
         } catch (ValidatorException | CustomValidatorException $ex) {
             $message = $ex->getMessage();
         } catch (Throwable $ex) {
-            $message = HelperAlias::loadMessage($ex->getMessage() . ' [' . $ex->getFile() . ':' . $ex->getLine() . ']', $status);
+            $message = CCxxHelperAlias::loadMessage($ex->getMessage() . ' [' . $ex->getFile() . ':' . $ex->getLine() . ']', $status);
         }
 
         return self::view(compact('data', 'message', 'status'));
@@ -339,11 +339,11 @@ abstract class CrudController extends DashboardControllerAlias
         try {
             $data = $this->getService()->getDataToEdit($id);
             $status = true;
-            $message = HelperAlias::loadMessage('Dados encontrados com sucesso, segue abaixo a relação das informações.', $status);
+            $message = CCxxHelperAlias::loadMessage('Dados encontrados com sucesso, segue abaixo a relação das informações.', $status);
         } catch (ValidatorException | CustomValidatorException $ex) {
             $message = $ex->getMessage();
         } catch (Throwable $ex) {
-            $message = HelperAlias::loadMessage($ex->getMessage() . ' [' . $ex->getFile() . ':' . $ex->getLine() . ']', $status);
+            $message = CCxxHelperAlias::loadMessage($ex->getMessage() . ' [' . $ex->getFile() . ':' . $ex->getLine() . ']', $status);
         }
 
         return self::view(compact('data', 'message', 'status'));
@@ -407,7 +407,7 @@ abstract class CrudController extends DashboardControllerAlias
         } catch (ValidatorException | CustomValidatorException $ex) {
             $message = $ex->getMessage();
         } catch (Throwable $ex) {
-            $message = HelperAlias::loadMessage($ex->getMessage() . ' [' . $ex->getFile() . ':' . $ex->getLine() . ']', $status);
+            $message = CCxxHelperAlias::loadMessage($ex->getMessage() . ' [' . $ex->getFile() . ':' . $ex->getLine() . ']', $status);
         }
 
         return self::view(compact('data', 'message', 'status'));
@@ -431,7 +431,7 @@ abstract class CrudController extends DashboardControllerAlias
         }
 
         return response()->json(
-            HelperAlias::createDefaultJsonToResponse($status, compact('rows', 'message')),
+            CCxxHelperAlias::createDefaultJsonToResponse($status, compact('rows', 'message')),
             $code
         );
     }

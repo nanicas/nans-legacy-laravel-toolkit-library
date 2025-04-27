@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use Throwable;
 use Nanicas\LegacyLaravelToolkit\Helpers\Helper as InternalHelper;
 
-class_alias(InternalHelper::readTemplateConfig()['helpers']['global'], __NAMESPACE__ . '\HelperAlias');
+class_alias(InternalHelper::readTemplateConfig()['helpers']['global'], __NAMESPACE__ . '\DAPTxxHelperAlias');
 
 trait DynamicActionPort
 {
@@ -46,7 +46,7 @@ trait DynamicActionPort
             $message = (empty($result)) ? 'Ocorreu um problema durante o processamento dessa ação de "' . $action . '"' : 'Ação executada com sucesso!';
 
             if (!$this->getIsAPI()) {
-                $message = HelperAlias::loadMessage($message, $status);
+                $message = DAPTxxHelperAlias::loadMessage($message, $status);
             }
         } catch (ValidatorException | CustomValidatorException $ex) {
             $message = $ex->getMessage();
@@ -54,7 +54,7 @@ trait DynamicActionPort
             $message = $th->getMessage();
 
             if (!$this->getIsAPI()) {
-                $message = HelperAlias::loadMessage($message, $status);
+                $message = DAPTxxHelperAlias::loadMessage($message, $status);
             }
         }
 
@@ -73,7 +73,7 @@ trait DynamicActionPort
     {
         extract($data);
 
-        return response()->json(HelperAlias::createDefaultJsonToResponse(
+        return response()->json(DAPTxxHelperAlias::createDefaultJsonToResponse(
             $status,
             [
                 'result' => $result,

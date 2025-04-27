@@ -15,7 +15,7 @@ use Nanicas\LegacyLaravelToolkit\Helpers\Helper as InternalHelper;
 
 $config = InternalHelper::readTemplateConfig();
 if (!empty($config['helpers'])) {
-    class_alias($config['helpers']['global'], uniqid() . __NAMESPACE__ . '\HelperAlias');
+    class_alias($config['helpers']['global'],  __NAMESPACE__ . '\CxxHelperAlias');
 }
 
 class Controller extends BaseController
@@ -52,10 +52,10 @@ class Controller extends BaseController
 
     public function beforeView(Request $request)
     {
-        $templateConfig = HelperAlias::readTemplateConfig();
+        $templateConfig = CxxHelperAlias::readTemplateConfig();
 
         View::share('assets', $this->getConfig()['assets'] ?? []);
-        View::share('view_prefix', HelperAlias::getViewPrefix());
+        View::share('view_prefix', CxxHelperAlias::getViewPrefix());
         View::share('assets_prefix', $this->getRootFolderNameOfAssets());
         View::share('packaged_assets_prefix', $this->getRootFolderNameOfAssetsPackaged());
         View::share('screen', $this->getScreen());
@@ -128,12 +128,12 @@ class Controller extends BaseController
 
     public function getRootFolderNameOfAssetsPackaged()
     {
-        return HelperAlias::getRootFolderNameOfAssets();
+        return CxxHelperAlias::getRootFolderNameOfAssets();
     }
 
     public function getRootFolderNameOfAssets()
     {
-        $root = HelperAlias::getRootFolderNameOfAssets();
+        $root = CxxHelperAlias::getRootFolderNameOfAssets();
         $packaged = $this->isPackagedView();
 
         return ($packaged) ? $root . '/' : '';

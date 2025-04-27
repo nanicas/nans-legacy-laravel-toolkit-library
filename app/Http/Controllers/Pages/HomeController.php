@@ -5,7 +5,7 @@ namespace Nanicas\LegacyLaravelToolkit\Http\Controllers\Pages;
 use Nanicas\LegacyLaravelToolkit\Services\HomeService;
 use Nanicas\LegacyLaravelToolkit\Helpers\Helper as InternalHelper;
 
-class_alias(InternalHelper::readTemplateConfig()['helpers']['global'], __NAMESPACE__ . '\HelperAlias');
+class_alias(InternalHelper::readTemplateConfig()['helpers']['global'], __NAMESPACE__ . '\HCxxHelperAlias');
 class_alias(InternalHelper::readTemplateConfig()['controllers']['dashboard'], __NAMESPACE__ . '\DashboardControllerAlias');
 
 class HomeController extends DashboardControllerAlias
@@ -25,6 +25,6 @@ class HomeController extends DashboardControllerAlias
         $data = $this->getService()->getIndexData();
         $packaged = $this->isPackagedView();
 
-        return HelperAlias::view('pages.home.index', $data, $packaged);
+        return HCxxHelperAlias::view('pages.home.index', $data, $packaged);
     }
 }
