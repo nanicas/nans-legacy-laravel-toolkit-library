@@ -9,7 +9,7 @@ composer require nanicas/legacy-laravel-toolkit-library:dev-main
 Edite o arquivo `<app_name>/config/app.php` e adicione a linha:
 ```
 'providers' => [
-    \Nanicas\LegacyLaravelToolkit\Providers\BootstrapServiceProvider::class,
+    \Nanicas\LegacyLaravelToolkit\Providers\AppServiceProvider::class,
 ]
 ```
 
