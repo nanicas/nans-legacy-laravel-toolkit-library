@@ -12,8 +12,14 @@ use Nanicas\LegacyLaravelToolkit\Exceptions\CustomValidatorException;
 use Nanicas\LegacyLaravelToolkit\Helpers\Helper as InternalHelper;
 use Symfony\Component\HttpFoundation\Response;
 
-class_alias(InternalHelper::readTemplateConfig()['helpers']['global'], uniqid() . __NAMESPACE__ . '\HelperAlias');
-class_alias(InternalHelper::readTemplateConfig()['controllers']['dashboard'], __NAMESPACE__ . '\DashboardControllerAlias');
+$config = InternalHelper::readTemplateConfig();
+if (!empty($config['helpers'])) {
+    class_alias($config['helpers']['global'], uniqid() . __NAMESPACE__ . '\HelperAlias');
+}
+
+if (!empty($config['controllers'])) {
+    class_alias($config['controllers']['dashboard'], __NAMESPACE__ . '\DashboardControllerAlias');
+}
 
 abstract class CrudController extends DashboardControllerAlias
 {

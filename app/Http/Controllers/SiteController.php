@@ -5,8 +5,14 @@ namespace Nanicas\LegacyLaravelToolkit\Http\Controllers;
 use Nanicas\LegacyLaravelToolkit\Traits\AvailabilityWithService;
 use Nanicas\LegacyLaravelToolkit\Helpers\Helper as InternalHelper;
 
-class_alias(InternalHelper::readTemplateConfig()['helpers']['global'], __NAMESPACE__ . '\HelperAlias');
-class_alias(InternalHelper::readTemplateConfig()['controllers']['base'], __NAMESPACE__ . '\BaseControllerAlias');
+$config = InternalHelper::readTemplateConfig();
+if (!empty($config['helpers'])) {
+    class_alias($config['helpers']['global'], uniqid() . __NAMESPACE__ . '\HelperAlias');
+}
+
+if (!empty($config['controllers'])) {
+    class_alias($config['controllers']['base'], __NAMESPACE__ . '\BaseControllerAlias');
+}
 
 abstract class SiteController extends BaseControllerAlias
 {

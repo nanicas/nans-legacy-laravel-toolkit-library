@@ -11,7 +11,10 @@ use Illuminate\Support\Facades\Validator;
 use Nanicas\LegacyLaravelToolkit\Models\AbstractModel;
 use Nanicas\LegacyLaravelToolkit\Helpers\Helper as InternalHelper;
 
-class_alias(InternalHelper::readTemplateConfig()['controllers']['base'], __NAMESPACE__ . '\BaseControllerAlias');
+$config = InternalHelper::readTemplateConfig();
+if (!empty($config['controllers'])) {
+    class_alias($config['controllers']['base'], __NAMESPACE__ . '\BaseControllerAlias');
+}
 
 abstract class APIController extends BaseControllerAlias
 {

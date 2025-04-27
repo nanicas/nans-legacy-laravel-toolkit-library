@@ -13,7 +13,10 @@ use Nanicas\LegacyLaravelToolkit\Staters\AppStater;
 use Illuminate\Http\Request;
 use Nanicas\LegacyLaravelToolkit\Helpers\Helper as InternalHelper;
 
-class_alias(InternalHelper::readTemplateConfig()['helpers']['global'], __NAMESPACE__ . '\HelperAlias');
+$config = InternalHelper::readTemplateConfig();
+if (!empty($config['helpers'])) {
+    class_alias($config['helpers']['global'], uniqid() . __NAMESPACE__ . '\HelperAlias');
+}
 
 class Controller extends BaseController
 {
