@@ -14,12 +14,12 @@ return [
         'header' => [
             'navbar' => [
                 'user' => [
-                    'has_profile' => true,
+                    'has_profile' => false,
                     'profile_route' => 'user.show',
                 ]
             ],
             'search' => [
-                'has' => true,
+                'has' => false,
                 'placeholder' => 'Buscar...',
                 'route' => 'dashboard.action',
                 'route_params' => [
