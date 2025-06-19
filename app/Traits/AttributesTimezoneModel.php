@@ -4,7 +4,7 @@ namespace Nanicas\LegacyLaravelToolkit\Traits;
 
 use Nanicas\LegacyLaravelToolkit\Helpers\Helper as InternalHelper;
 
-class_alias(InternalHelper::readTemplateConfig()['helpers']['global'], uniqid() . __NAMESPACE__ . '\ATMTxxHelperAlias');
+class_alias(InternalHelper::readTemplateConfig()['helpers']['global'],  __NAMESPACE__ . '\ATMTxxHelperAlias');
 
 trait AttributesTimezoneModel
 {

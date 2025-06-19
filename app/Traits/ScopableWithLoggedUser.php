@@ -5,7 +5,7 @@ namespace Nanicas\LegacyLaravelToolkit\Traits;
 use Illuminate\Database\Eloquent\Builder;
 use Nanicas\LegacyLaravelToolkit\Helpers\Helper as InternalHelper;
 
-class_alias(InternalHelper::readTemplateConfig()['helpers']['global'], uniqid() . __NAMESPACE__ . '\SWLUTxxHelperAlias');
+class_alias(InternalHelper::readTemplateConfig()['helpers']['global'],  __NAMESPACE__ . '\SWLUTxxHelperAlias');
 
 trait ScopableWithLoggedUser
 {
