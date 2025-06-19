@@ -15,7 +15,7 @@ class InjectLoggedUser
     public function handle(Request $request, Closure $next)
     {
         if (auth()->check()) {
-            $request->merge(['logged_user_id' => auth()->id()]);
+            $request->merge(['_logged_user_id' => auth()->id()]);
         }
 
         return $next($request);

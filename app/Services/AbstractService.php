@@ -2,13 +2,14 @@
 
 namespace Nanicas\LegacyLaravelToolkit\Services;
 
+use Nanicas\LegacyLaravelToolkit\Traits\Configurable;
 use Nanicas\LegacyLaravelToolkit\Handlers\AbstractHandler;
 use Nanicas\LegacyLaravelToolkit\Validators\AbstractValidator;
-use Nanicas\LegacyLaravelToolkit\Validators\AbstractAPIValidator;
 use Nanicas\LegacyLaravelToolkit\Exceptions\ValidatorException;
-use Nanicas\LegacyLaravelToolkit\Traits\AvailabilityWithDependencie;
 use Nanicas\LegacyLaravelToolkit\Traits\AvailabilityWithRequest;
-use Nanicas\LegacyLaravelToolkit\Traits\Configurable;
+use Nanicas\LegacyLaravelToolkit\Repositories\AbstractRepository;
+use Nanicas\LegacyLaravelToolkit\Validators\AbstractAPIValidator;
+use Nanicas\LegacyLaravelToolkit\Traits\AvailabilityWithDependencie;
 
 abstract class AbstractService
 {
@@ -17,7 +18,9 @@ abstract class AbstractService
         Configurable;
 
     protected $handler;
+
     protected $validator;
+
     protected $repository;
 
     public function getRepository()
@@ -46,6 +49,11 @@ abstract class AbstractService
         $this->handler = $handler;
     }
 
+    public function setRepository(AbstractRepository $repository)
+    {
+        $this->repository = $repository;
+    }
+
     public function handle(array &$data, string $method)
     {
         if (empty($handler = $this->getHandler())) {
@@ -61,16 +69,22 @@ abstract class AbstractService
         $handler->run($method);
     }
 
-    public function validate(array $data, string $method)
+    /**
+     * @param array $data
+     * @param string $method
+     * @throws ValidatorException
+     * @return bool|null
+     */
+    public function validate(array $data, string $method): bool|null
     {
         if (empty($validator = $this->getValidator())) {
-            return;
+            return null;
         }
 
         $validator->setData($data);
 
-        $request = $this->getConfigIndex('request');
-        if ($request) {
+        $request = $this->getRequest();
+        if (!empty($request)) {
             $validator->setRequest($request);
         }
 
@@ -82,10 +96,5 @@ abstract class AbstractService
         }
 
         return true;
-    }
-
-    public function setRepository($repository)
-    {
-        $this->repository = $repository;
     }
 }

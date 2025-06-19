@@ -26,10 +26,18 @@ abstract class APIController extends BaseControllerAlias
 
     public function index(Request $request)
     {
+        $infoValidate = $this->formValidate($request, $this->getIndexRequest());
+        $data = $infoValidate['validated'];
+        $request = $infoValidate['request'];
+
         $method = __FUNCTION__;
 
-        return $this->execute(function () use ($request, $method) {
+        return $this->execute(function () use ($request, $method, $data) {
+            $this->authorize('index', $this->getAuthorizationResource());
+
             $this->getService()->setRequest($request);
+            $this->getService()->handle($data, $method);
+            $this->getService()->validate($data, $method);
 
             $rows = $this->getService()->filter($request->all());
 
@@ -91,9 +99,11 @@ abstract class APIController extends BaseControllerAlias
         return $this->execute(function () use ($request, $data, $row, $method) {
             $this->authorize('update', $row);
 
+            $wrappedData = compact('data', 'row');
+
             $this->getService()->setRequest($request);
-            $this->getService()->handle($data, $method);
-            $this->getService()->validate(compact('data', 'row'), $method);
+            $this->getService()->handle($wrappedData, $method);
+            $this->getService()->validate($wrappedData, $method);
 
             $updated = $this->getService()->update($row, $data);
             if (!$updated) {
@@ -109,12 +119,12 @@ abstract class APIController extends BaseControllerAlias
         $method = 'destroy';
 
         return $this->execute(function () use ($request, $row, $method) {
-            $this->authorize('delete', $row);
+            $this->authorize('destroy', $row);
 
             $this->getService()->setRequest($request);
             $this->getService()->validate(compact('row'), $method);
 
-            $status = $this->getService()->delete($row);
+            $status = $this->getService()->destroy($row);
             if (!$status) {
                 return $this->errorResponse($this->getResourceName($method) . ' could not be deleted.', Response::HTTP_INTERNAL_SERVER_ERROR);
             }
@@ -224,6 +234,11 @@ abstract class APIController extends BaseControllerAlias
     }
 
     protected function getStoreRequest()
+    {
+        return null;
+    }
+
+    protected function getIndexRequest()
     {
         return null;
     }

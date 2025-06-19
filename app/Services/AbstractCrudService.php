@@ -9,18 +9,13 @@ class_alias(InternalHelper::readTemplateConfig()['helpers']['global'], __NAMESPA
 
 abstract class AbstractCrudService extends AbstractService
 {
-    public function getIndexData(array $data = [])
+    public function getDataToIndex(array $data = [])
     {
         $rows = collect();
 
         return compact('rows');
     }
 
-    /**
-     * It was necessary to use "listx" instead of "list" because list is a 
-     * prohibited word in PHP when using the trait.
-     * @return array
-     */
     public function getDataToList(array $data)
     {
         $this->handle($data, 'list');
@@ -32,7 +27,7 @@ abstract class AbstractCrudService extends AbstractService
 
     public function getDataToCreate()
     {
-        return $this->getDataToForm(__FUNCTION__);
+        return $this->getComplementDataToForm(__FUNCTION__);
     }
 
     public function getDataToEdit(int $id)
@@ -46,19 +41,14 @@ abstract class AbstractCrudService extends AbstractService
         parent::handle($data, 'edit');
         parent::validate($data, 'edit');
 
-        $dataForm = $this->getDataToForm(__FUNCTION__);
-        $dataForm = array_merge($data, $dataForm);
+        $formData = $this->getComplementDataToForm(__FUNCTION__);
+        $formData = array_merge($data, $formData);
 
-        if (method_exists($this, 'posteriorComplementDataOnEdit')) {
-            $this->posteriorComplementDataOnEdit($dataForm);
+        if (method_exists($this, 'postComplementDataOnEdit')) {
+            $this->postComplementDataOnEdit($formData);
         }
 
-        return $dataForm;
-    }
-
-    public function getDataToForm()
-    {
-        return [];
+        return $formData;
     }
 
     public function getById(int $id)
@@ -111,20 +101,26 @@ abstract class AbstractCrudService extends AbstractService
         parent::handle($data, 'show');
         parent::validate($data, 'show');
 
-        $dataForm = $this->getDataToForm(__FUNCTION__);
-        $dataForm = array_merge($data, $dataForm);
+        $formData = $this->getComplementDataToForm(__FUNCTION__);
+        $formData = array_merge($data, $formData);
 
-        if (method_exists($this, 'posteriorComplementDataOnShow')) {
-            $this->posteriorComplementDataOnShow($dataForm);
+        if (method_exists($this, 'postComplementDataOnShow')) {
+            $this->postComplementDataOnShow($formData);
         }
 
-        return $dataForm;
+        return $formData;
     }
 
     public function filter(array $data)
     {
         parent::handle($data, 'filter');
+        parent::validate($data, 'filter');
 
         return $this->getRepository()->filter($data);
+    }
+
+    protected function getComplementDataToForm(string $method): array
+    {
+        return [];
     }
 }

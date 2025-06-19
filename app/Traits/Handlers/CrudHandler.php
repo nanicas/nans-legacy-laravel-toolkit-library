@@ -13,13 +13,14 @@ trait CrudHandler
     public function update()
     {
         $data = &$this->data;
+        $data['row'] = (isset($data['row'])) ? $data['row'] : null;
+
         $this->form($data);
     }
 
     public function destroy()
     {
         $data = &$this->data;
-
         $data['row'] = (isset($data['row'])) ? $data['row'] : null;
     }
 
@@ -40,5 +41,6 @@ trait CrudHandler
 
     public function form(&$data)
     {
+        /** As classes que usam esse trait devem implementar o método form */
     }
 }

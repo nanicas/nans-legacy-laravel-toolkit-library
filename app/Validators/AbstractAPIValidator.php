@@ -2,10 +2,8 @@
 
 namespace Nanicas\LegacyLaravelToolkit\Validators;
 
-use InvalidArgumentException;
 use Nanicas\LegacyLaravelToolkit\Traits\Configurable;
 use Illuminate\Validation\Factory as ValidatorFactory;
-use Nanicas\LegacyLaravelToolkit\Exceptions\ValidatorException;
 use Nanicas\LegacyLaravelToolkit\Traits\AvailabilityWithRequest;
 
 abstract class AbstractAPIValidator
@@ -16,14 +14,6 @@ abstract class AbstractAPIValidator
      * @var array
      */
     protected array $data;
-
-    /**
-     * @var array
-     * @to.do: maybe, remove it
-     */
-    protected array $errorKeys = [
-        'test.0' => 'default',
-    ];
 
     /**
      * @param ValidatorFactory $validator
@@ -43,7 +33,6 @@ abstract class AbstractAPIValidator
 
     /**
      * @param string $method
-     * @throws ValidatorException
      * @return null|bool
      */
     public function run(string $method): null|bool
@@ -53,49 +42,8 @@ abstract class AbstractAPIValidator
         }
 
         $validator = $this->$method($this->data);
+        $this->configureIndex('validator_bagger', $validator);
 
-        if (!empty($errors = $validator->errors()->messages())) {
-            throw ValidatorException::new(
-                $errors,
-                $validator,
-                $this->getConfig()
-            );
-        }
-
-        return true;
+        return empty($validator->errors()->messages());
     }
-
-    /**
-     * @param string $function
-     * @param int $index
-     * @return string
-     * @throws InvalidArgumentException
-     * @to.do: maybe, remove it
-     */
-    protected function getErrorKey(string $function, int $index = 0): string
-    {
-        if (!isset($this->errorKeys[$function . '.' . $index])) {
-            throw new InvalidArgumentException('Error key not found');
-        }
-
-        return $this->errorKeys[$function . '.' . $index];
-    }
-
-    /**
-     * @example: future use
-     * 
-     * protected function add(array $data): Validator
-     * {
-     *     $validator = $this->validator->make($data, []);
-     * 
-     *     if ($data['row']->isCanceled() || $data['row']->isNotPaid()) {
-     *         $validator->getMessageBag()->add(
-     *             'key',
-     *             'message'
-     *         );
-     *     }
-     * 
-     *     return $validator;
-     * }
-     */
 }

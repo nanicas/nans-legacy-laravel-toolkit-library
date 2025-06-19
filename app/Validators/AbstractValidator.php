@@ -3,18 +3,19 @@
 namespace Nanicas\LegacyLaravelToolkit\Validators;
 
 use Nanicas\LegacyLaravelToolkit\Helpers\Helper as InternalHelper;
+use Nanicas\LegacyLaravelToolkit\Traits\AvailabilityWithRequest;
 
 class_alias(InternalHelper::readTemplateConfig()['helpers']['global'],  __NAMESPACE__ . '\AVxxHelperAlias');
 
 abstract class AbstractValidator
 {
-    private $data;
-    private $method;
-    private $withHTML = true;
-    private $textSeparator = PHP_EOL;
-    protected $request;
-    protected $errors = [];
-    protected $messages = [
+    use AvailabilityWithRequest;
+
+    private array $data;
+    private string $method;
+    private bool $withHTML = true;
+    protected array $errors = [];
+    protected array $messages = [
         'id_invalid' => 'O ID é inválido',
         'logged_user_type_is_invalid_for_the_operation' => 'O tipo do usuário logado é inválido para a operação',
         'user_type_is_invalid_for_the_operation' => 'O tipo do usuário é inválido para a operação',
@@ -28,11 +29,6 @@ abstract class AbstractValidator
         'authenticated_users_cannot_perform_this_operation' => 'Usuarios autenticados não podem realizar essa operação',
         'not_allowed_on_same_logged_scope' => 'Não permitido no mesmo escopo logado'
     ];
-
-    public function setRequest(object $request)
-    {
-        $this->request = $request;
-    }
 
     public function setData(array $data)
     {
@@ -54,11 +50,6 @@ abstract class AbstractValidator
         $this->errors[] = vsprintf($this->messages[$key], $data);
     }
 
-    private function setMethod(string $method)
-    {
-        $this->method = $method;
-    }
-
     public function getErrors()
     {
         return $this->errors;
@@ -67,11 +58,6 @@ abstract class AbstractValidator
     public function hasErrors()
     {
         return (!empty($this->getErrors()));
-    }
-
-    public function getTextSeparator()
-    {
-        return $this->textSeparator;
     }
 
     public function getMethod()
@@ -84,6 +70,10 @@ abstract class AbstractValidator
         return $this->data;
     }
 
+    /**
+     * @param string $method
+     * @return null|bool
+     */
     public function run(string $method)
     {
         if (!method_exists($this, $method)) {
@@ -105,5 +95,10 @@ abstract class AbstractValidator
         $packaged = false;
 
         return AVxxHelperAlias::view('components.validator-messages', ['messages' => $this->errors], $packaged)->render();
+    }
+
+    private function setMethod(string $method)
+    {
+        $this->method = $method;
     }
 }

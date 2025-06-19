@@ -10,6 +10,18 @@ abstract class DatabaseRepository extends AbstractRepository
 {
     const PAGINATE_MAX_ROWS = 15;
 
+    protected object $model;
+
+    public function getModel()
+    {
+        return $this->model;
+    }
+
+    public function getModelClass()
+    {
+        return get_class($this->model);
+    }
+
     public function getTable()
     {
         return $this->getModel()->getTable();
@@ -121,5 +133,10 @@ abstract class DatabaseRepository extends AbstractRepository
         }
 
         return $query->get();
+    }
+
+    protected function setModel(object $model): void
+    {
+        $this->model = $model;
     }
 }
