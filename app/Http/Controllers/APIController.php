@@ -22,6 +22,8 @@ abstract class APIController extends BaseControllerAlias
 
     protected bool $trace = true;
 
+    protected bool $usePolicies = true;
+
     abstract protected function getAuthorizationResource();
 
     public function index(Request $request)
@@ -33,7 +35,9 @@ abstract class APIController extends BaseControllerAlias
         $method = __FUNCTION__;
 
         return $this->execute(function () use ($request, $method, $data) {
-            $this->authorize('index', $this->getAuthorizationResource());
+            if ($this->usePolicies()) {
+                $this->authorize('index', $this->getAuthorizationResource());
+            }
 
             $this->getService()->setRequest($request);
             $this->getService()->handle($data, $method);
@@ -54,7 +58,9 @@ abstract class APIController extends BaseControllerAlias
         $method = __FUNCTION__;
 
         return $this->execute(function () use ($request, $data, $method) {
-            $this->authorize('store', $this->getAuthorizationResource());
+            if ($this->usePolicies()) {
+                $this->authorize('store', $this->getAuthorizationResource());
+            }
 
             $this->getService()->setRequest($request);
             $this->getService()->handle($data, $method);
@@ -62,7 +68,10 @@ abstract class APIController extends BaseControllerAlias
 
             $stored = $this->getService()->store($data);
             if (!$stored) {
-                return $this->errorResponse($this->getResourceName($method) . ' could not be created.', Response::HTTP_INTERNAL_SERVER_ERROR);
+                return $this->errorResponse(
+                    $this->getResourceName($method) . ' could not be created.',
+                    Response::HTTP_INTERNAL_SERVER_ERROR
+                );
             }
 
             return $this->successResponse($stored,  Response::HTTP_CREATED, $this->getResourceName($method) . ' created successfully.');
@@ -74,14 +83,19 @@ abstract class APIController extends BaseControllerAlias
         $method = 'show';
 
         return $this->execute(function () use ($request, $row, $method) {
-            $this->authorize('show', $row);
+            if ($this->usePolicies()) {
+                $this->authorize('show', $row);
+            }
 
             $this->getService()->setRequest($request);
             $this->getService()->validate(compact('row'), $method);
 
             $row = $this->getService()->show($row);
             if (!$row) {
-                return $this->errorResponse($this->getResourceName($method) . ' not found.', Response::HTTP_NOT_FOUND);
+                return $this->errorResponse(
+                    $this->getResourceName($method) . ' not found.',
+                    Response::HTTP_NOT_FOUND
+                );
             }
 
             return $this->successResponse($row, Response::HTTP_OK, $this->getResourceName($method) . ' retrieved successfully.');
@@ -97,7 +111,9 @@ abstract class APIController extends BaseControllerAlias
         $method = 'update';
 
         return $this->execute(function () use ($request, $data, $row, $method) {
-            $this->authorize('update', $row);
+            if ($this->usePolicies()) {
+                $this->authorize('update', $row);
+            }
 
             $wrappedData = compact('data', 'row');
 
@@ -107,7 +123,10 @@ abstract class APIController extends BaseControllerAlias
 
             $updated = $this->getService()->update($row, $data);
             if (!$updated) {
-                return $this->errorResponse($this->getResourceName($method) . ' could not be updated.', Response::HTTP_INTERNAL_SERVER_ERROR);
+                return $this->errorResponse(
+                    $this->getResourceName($method) . ' could not be updated.',
+                    Response::HTTP_INTERNAL_SERVER_ERROR
+                );
             }
 
             return $this->successResponse($updated, Response::HTTP_OK, $this->getResourceName($method) . ' updated successfully.');
@@ -119,14 +138,19 @@ abstract class APIController extends BaseControllerAlias
         $method = 'destroy';
 
         return $this->execute(function () use ($request, $row, $method) {
-            $this->authorize('destroy', $row);
+            if ($this->usePolicies()) {
+                $this->authorize('destroy', $row);
+            }
 
             $this->getService()->setRequest($request);
             $this->getService()->validate(compact('row'), $method);
 
             $status = $this->getService()->destroy($row);
             if (!$status) {
-                return $this->errorResponse($this->getResourceName($method) . ' could not be deleted.', Response::HTTP_INTERNAL_SERVER_ERROR);
+                return $this->errorResponse(
+                    $this->getResourceName($method) . ' could not be deleted.',
+                    Response::HTTP_INTERNAL_SERVER_ERROR
+                );
             }
 
             return $this->successResponse(null, Response::HTTP_NO_CONTENT, $this->getResourceName($method) . ' deleted successfully.');
@@ -140,12 +164,12 @@ abstract class APIController extends BaseControllerAlias
         } catch (ValidatorException $exception) {
             $error_type = get_class($exception);
             $code = $exception->getCode();
-            $error = $exception->getErrors();
+            $errors = $exception->getErrors();
             $trace = $this->trace ? $exception->getTraceAsString() : null;
             $file = $exception->getFile();
             $line = $exception->getLine();
 
-            $response = $this->errorResponse($error, $code, compact('file', 'line', 'trace', 'error_type'));
+            $response = $this->errorResponse($errors, $code, compact('file', 'line', 'trace', 'error_type'));
         } catch (Throwable $th) {
             $error_type = get_class($th);
             $error = $th->getMessage();
@@ -160,16 +184,16 @@ abstract class APIController extends BaseControllerAlias
         }
     }
 
-    protected function errorResponse($message, $code = 500, array $data = [])
+    protected function errorResponse(string|array $errors, $code = 500, array $data = [])
     {
-        $messageContent = is_array($message) ? $message : [$message];
+        if (is_string($errors)) {
+            $errors = ['message' => [$errors]];
+        }
 
         return response()->json([
             'code' => $code,
             'status' => false,
-            'errors' => [
-                'message' => $messageContent
-            ],
+            'errors' => $errors,
             'metadata' => $data
         ], Response::HTTP_INTERNAL_SERVER_ERROR);
     }
@@ -226,6 +250,11 @@ abstract class APIController extends BaseControllerAlias
         }
 
         return static::RESOURCE_NAME . 's';
+    }
+
+    protected function usePolicies()
+    {
+        return $this->usePolicies;
     }
 
     protected function getUpdateRequest()

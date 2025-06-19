@@ -44,7 +44,7 @@ abstract class AbstractAPICrudService extends AbstractService
         }
 
         if ($validator->run($method) === false) {
-            $validatorBagger = $this->getConfigIndex('validator_bagger');
+            $validatorBagger = $validator->getConfigIndex('validator_bagger');
 
             throw ValidatorException::new(
                 $validatorBagger->errors()->messages(),
