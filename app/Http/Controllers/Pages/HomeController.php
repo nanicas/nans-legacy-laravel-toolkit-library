@@ -22,7 +22,7 @@ class HomeController extends DashboardControllerAlias
         $this->addIndexAssets();
         $this->beforeView();
 
-        $data = $this->getService()->getIndexData();
+        $data = $this->getService()->getDataToIndex();
         $packaged = $this->isPackagedView();
 
         return HCxxHelperAlias::view('pages.home.index', $data, $packaged);

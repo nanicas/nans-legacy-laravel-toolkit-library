@@ -252,7 +252,7 @@ abstract class CrudController extends DashboardControllerAlias
         $message = '';
         $query_params = $request->query();
         $executorData = function () {
-            return $this->getService()->getIndexData();
+            return $this->getService()->getDataToIndex();
         };
 
         if ($this->isSafe()) {

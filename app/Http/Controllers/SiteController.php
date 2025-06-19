@@ -36,7 +36,7 @@ abstract class SiteController extends BaseControllerAlias
     {
         $theme = $request->query('theme') ?? 'zacson';
 
-        $data = $this->getService()->getIndexData($request);
+        $data = $this->getService()->getDataToIndex($request);
         $view = ($data['config']['page'] == 'contracted') ? 'pages.site.themes.' . $theme : 'pages.site.' . $data['config']['page'];
 
         $this->addIndexAssets();
