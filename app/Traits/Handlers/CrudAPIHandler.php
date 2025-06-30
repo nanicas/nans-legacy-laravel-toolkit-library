@@ -15,4 +15,13 @@ trait CrudAPIHandler
             $data['active'] = (bool) $data['active'];
         }
     }
+
+    public function index()
+    {
+        $data = &$this->data;
+        if (isset($data['_logged_user_id'])) {
+            $data['user_id'] = $data['_logged_user_id'];
+            unset($data['_logged_user_id']);
+        }
+    }
 }
