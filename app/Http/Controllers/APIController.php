@@ -44,7 +44,8 @@ abstract class APIController extends BaseControllerAlias
             $this->getService()->validate($data, $method);
 
             $rows = $this->getService()->filter($request->all());
-
+            $rows = $this->beforeIndexResponse($rows);
+            
             return $this->successResponse($rows, Response::HTTP_OK, $this->getResourceName($method) . ' retrieved successfully.');
         });
     }
@@ -270,5 +271,10 @@ abstract class APIController extends BaseControllerAlias
     protected function getIndexRequest()
     {
         return null;
+    }
+    
+    protected function beforeIndexResponse($rows)
+    {
+        return $rows;
     }
 }
