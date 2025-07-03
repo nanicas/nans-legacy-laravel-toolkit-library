@@ -271,4 +271,9 @@ abstract class APIController extends BaseControllerAlias
     {
         return null;
     }
+    
+    protected function beforeIndexResponse($rows)
+    {
+        return $rows;
+    }
 }
