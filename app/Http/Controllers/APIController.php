@@ -43,7 +43,7 @@ abstract class APIController extends BaseControllerAlias
             $this->getService()->handle($data, $method);
             $this->getService()->validate($data, $method);
 
-            $rows = $this->getService()->filter($request->all());
+            $rows = $this->getService()->filter($data);
             $rows = $this->beforeIndexResponse($rows);
             
             return $this->successResponse($rows, Response::HTTP_OK, $this->getResourceName($method) . ' retrieved successfully.');
