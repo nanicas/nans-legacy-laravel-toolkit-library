@@ -16,7 +16,7 @@ abstract class AbstractAPICrudService extends AbstractService
 
     public function destroy(Model|AbstractModel $row)
     {
-        return parent::getRepository()->destroy($row);
+        return parent::getRepository()->destroy($row->getId());
     }
 
     public function show(Model|AbstractModel $row)
