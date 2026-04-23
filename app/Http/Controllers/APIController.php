@@ -45,7 +45,7 @@ abstract class APIController extends BaseControllerAlias
 
             $rows = $this->getService()->filter($data);
             $rows = $this->beforeIndexResponse($rows);
-            
+
             return $this->successResponse($rows, Response::HTTP_OK, $this->getResourceName($method) . ' retrieved successfully.');
         });
     }
@@ -258,6 +258,13 @@ abstract class APIController extends BaseControllerAlias
         return $this->usePolicies;
     }
 
+    protected function checkPolicy(string $action, $model = null): void
+    {
+        if ($this->usePolicies()) {
+            $this->authorize($action, $model ?? $this->getAuthorizationResource());
+        }
+    }
+
     protected function getUpdateRequest()
     {
         return null;
@@ -272,7 +279,7 @@ abstract class APIController extends BaseControllerAlias
     {
         return null;
     }
-    
+
     protected function beforeIndexResponse($rows)
     {
         return $rows;
