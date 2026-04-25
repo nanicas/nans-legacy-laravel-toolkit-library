@@ -44,3 +44,14 @@ E, no seu arquivo `app/Functions/global.php`, pode ser feito da seguinte maneira
 ```php
 include_once __DIR__ . '/../../vendor/nanicas/legacy-laravel-toolkit-library/app/Functions/global.php';
 ```
+
+#### Aliases
+Caso esteja usando a biblioteca `nans-legacy-laravel-toolkit-view-library`, será necessário registrar o "apelido" no arquivo `config/app.php` para que as views sejam carregadas corretamente:
+
+```
+'aliases' => Facade::defaultAliases()->merge([
+    'Helper' => \App\Helpers\ExampleHelper::class,
+])->toArray(),
+```
+
+> Lembre-se de usar o mesmo nome referenciado em `config/nanicas_legacy_laravel_toolkit.php`.
