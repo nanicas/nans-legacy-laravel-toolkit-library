@@ -36,7 +36,7 @@ abstract class APIController extends BaseControllerAlias
 
         return $this->execute(function () use ($request, $method, $data) {
             if ($this->usePolicies()) {
-                $this->authorize('index', $this->getAuthorizationResource());
+                $this->authorize($this->getPolicyName('index'), $this->getAuthorizationResource());
             }
 
             $this->getService()->setRequest($request);
@@ -60,7 +60,7 @@ abstract class APIController extends BaseControllerAlias
 
         return $this->execute(function () use ($request, $data, $method) {
             if ($this->usePolicies()) {
-                $this->authorize('store', $this->getAuthorizationResource());
+                $this->authorize($this->getPolicyName('store'), $this->getAuthorizationResource());
             }
 
             $this->getService()->setRequest($request);
@@ -85,7 +85,7 @@ abstract class APIController extends BaseControllerAlias
 
         return $this->execute(function () use ($request, $row, $method) {
             if ($this->usePolicies()) {
-                $this->authorize('show', $row);
+                $this->authorize($this->getPolicyName('show'), $row);
             }
 
             $this->getService()->setRequest($request);
@@ -113,7 +113,7 @@ abstract class APIController extends BaseControllerAlias
 
         return $this->execute(function () use ($request, $data, $row, $method) {
             if ($this->usePolicies()) {
-                $this->authorize('update', $row);
+                $this->authorize($this->getPolicyName('update'), $row);
             }
 
             $wrappedData = compact('data', 'row');
@@ -140,7 +140,7 @@ abstract class APIController extends BaseControllerAlias
 
         return $this->execute(function () use ($request, $row, $method) {
             if ($this->usePolicies()) {
-                $this->authorize('destroy', $row);
+                $this->authorize($this->getPolicyName('destroy'), $row);
             }
 
             $this->getService()->setRequest($request);
@@ -258,10 +258,27 @@ abstract class APIController extends BaseControllerAlias
         return $this->usePolicies;
     }
 
+    /**
+     * Gera o nome da policy no padrão resource.action (ex: gym.store, gym.index)
+     */
+    protected function getPolicyName(string $action): string
+    {
+        $className = static::class;
+        // Remove namespace
+        $shortName = substr($className, strrpos($className, '\\') + 1);
+        // Remove sufixo Controller
+        $resource = str_replace('Controller', '', $shortName);
+        // Primeira letra minúscula
+        $resource = lcfirst($resource);
+
+        return $resource . '.' . $action;
+    }
+
     protected function checkPolicy(string $action, $model = null): void
     {
         if ($this->usePolicies()) {
-            $this->authorize($action, $model ?? $this->getAuthorizationResource());
+            $policyName = str_contains($action, '.') ? $action : $this->getPolicyName($action);
+            $this->authorize($policyName, $model ?? $this->getAuthorizationResource());
         }
     }
 
